@@ -20,6 +20,6 @@ int main() {
     // Close file
     file.close();
 
-    printf("terminé con %d bloques",i);
+    printf("encontré %d puntos",i);
     return 0;
 }
