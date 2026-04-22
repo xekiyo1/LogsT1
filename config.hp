@@ -1,0 +1,17 @@
+#define BLOCK 4096
+#define HIJOS_NODO 204
+#define PAD_SIZE 12;
+#define MEMORY_SIZE 0
+
+// Esto representa la info de cada hijo
+struct Hijo{
+    float x1,x2,y1,y2; // rectángulo contenedor
+    int valor;
+};
+
+//esto es el nodo en sí
+struct Nodo{
+    int k; // cantidad actual contenida en el nodo
+    Hijo hijos[HIJOS_NODO]; // lugar donde se guardan hijos
+    char pad[PAD_SIZE]; // cosa inútil para rellenar el bloque no más
+};
