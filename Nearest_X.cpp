@@ -1,8 +1,13 @@
-#include "config.h"
-#include<algorithm>
+#include "config.hp"
+/*#include<algorithm>
+#include<stdexcept>
+#include<string>
+#include<vector>*/
+#include<bits/stdc++.h>
 
 //esto es el nodo auxiliar que se utilizará, un poco grande o no
 //INCLUYE: Método para añadir hijo, método para actualizar su rectángulo
+using namespace std;
 struct NodoNearestX{
     Nodo nodo;
     int idx;
@@ -25,8 +30,9 @@ struct NodoNearestX{
 
     //añadir hijo que ya está formateado como hijo
     void addChild(Hijo& other){
+        if(nodo.k==HIJOS_NODO) throw logic_error("te odio no puedo mantener tantos hijos");
         updateRect(other.x1, other.x2, other.y1, other.y2);
-        nodo.hijos[k++] = other;
+        nodo.hijos[nodo.k++] = other;
     }
 
 
@@ -46,35 +52,36 @@ struct NodoNearestX{
 };
 
 void Nearest_X(string infile){
-    int i=0;
-    float puntos[ FLOAT_BLOCK ]; // 512 puntos (1024 floats)
+    //int i=0;
+    float buffer[ FLOAT_BLOCK ]; // 512 puntos (1024 floats)
 
-    std::vector<Hijo> init; // aquí se guardarán los puntos iniciales en bruto
-    std::vector<NodoNearestX> bulk, bulk2; //aquí, los NodoNearestX con la información para ser comparados
-    std::vector<Nodo> final(1); // aquí los nodos finales, que luego será escrito como archivo
-    
+    vector<Hijo> init; // aquí se guardarán los puntos iniciales en bruto
 
     ifstream file(infile, ios::binary);
     if (!file) {
-        cerr << "Error opening file for reading.";
-        return 1;
+        cerr << "Error opening file for reading."<<endl;
     }
-    while (file.read((char*)puntos, BLOCK)) {
+    while (file.read((char*)buffer, BLOCK)) {
         // tener cuidado si la cosa no es múltiplo del bloque, qué se hace si nos quedamos sin bloques
         for(int i=0;i<FLOAT_BLOCK;i+=2){
             Hijo aux;
-            aux.x1 = aux.x2 = puntos[i];
-            aux.y1 = aux.y2 = puntos[i+1];
+            aux.x1 = aux.x2 = buffer[i];
+            aux.y1 = aux.y2 = buffer[i+1];
+            aux.valor = -1;
             init.push_back(aux); //guardo el punto en bruto
         }
     }
     file.close();
 
-    
-    std::sort(init.begin(),init.end(),
+    sort(init.begin(),init.end(),
         [](Hijo &a, Hijo &b) //acá x1 y x2 son iguales por ser punto en bruto
-        { return a.x1 < b.x1; });
-    
+        { return a.x1 < b.x1; });    
+
+    // aquí guardaremos los que estamos ordenando
+    vector<NodoNearestX> bulk, bulk2;
+    // aquí los nodos finales ya creados, que luego será escrito como archivo
+    vector<Nodo> final(1);
+
     //nodo iniciales
     for(int i=0;i<init.size();i+=HIJOS_NODO){
         NodoNearestX nuevo;

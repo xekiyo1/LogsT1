@@ -1,5 +1,5 @@
 #define BLOCK 4096 //se asume potencia de 2 o si no los mataré a todos
-#define FLOAT_BLOCK BLOCK/sizeof(float);
+#define FLOAT_BLOCK BLOCK/sizeof(float)
 #define HIJOS_NODO 204
 #define PAD_SIZE 12
 #define MEMORY_SIZE 0
