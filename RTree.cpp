@@ -44,10 +44,10 @@ public:
 
     hora de aprender c++
     */
-    vector<Hijo> encontrarPuntos(float x1, float y1, float x2, float y2){
+    vector<float> encontrarPuntos(float x1, float y1, float x2, float y2){
         //aquí guardamos la respuesta, la idea es guardar los puntos como [x1, y1, x2, y2, x3, y3 ...]
         //para añadir valores se usa: sans.push_back(numerito_que_quieres_añadir);
-        vector<double> sans;
+        vector<float> sans;
 
         queue<int> pendiente; //FIFO :o y queremos que parta con la raíz
         pendiente.push(0);
