@@ -21,4 +21,6 @@ test:
 	make exec
 clean:
 	touch placeholder.out
+	touch placeholder.bin
+	ls | grep -P "^(?!=europa|test)\w+\.bin" | xargs -d "\n" rm
 	rm *.out
