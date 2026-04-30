@@ -2,6 +2,9 @@ FILES=test.cpp
 OUT=a.out
 FLAGS=-O3 -o "$(OUT)"
 
+TEST-FILES=test.cpp
+TEST-FLAGS= -Wall -DSAN=1 -fsanitize=address -fsanitize=undefined $(FLAGS)
+
 compile:
 	g++ $(FLAGS) $(FILES)
 exec:
@@ -9,5 +12,13 @@ exec:
 run:
 	make compile
 	make exec
+
+compile-test:
+	g++ $(TEST-FLAGS) $(TEST-FILES)
+test:
+	make clean
+	make compile-test
+	make exec
 clean:
+	touch placeholder.out
 	rm *.out
