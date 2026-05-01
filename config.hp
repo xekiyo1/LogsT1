@@ -1,3 +1,6 @@
+#ifndef CONFIG_HP
+#define CONFIG_HP
+
 #define BLOCK 4096 //se asume potencia de 2 o si no los mataré a todos
 #define FLOAT_BLOCK (int) (BLOCK/sizeof(float))
 #define HIJOS_NODO 204
@@ -72,3 +75,5 @@ struct NodoCalculador{
         other.pasteChild(nodo.hijos[nodo.k++]);
     }
 };
+
+#endif

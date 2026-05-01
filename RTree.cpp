@@ -1,10 +1,12 @@
 #include "config.hp"
 #include "headers.h"
+#include "RandomSquare.cpp"
 using namespace std;
 
 class RTree{
 private:
     fstream file;
+    int diskreads = 0; //para medir las I/Os
 public:
     void abrirArchivo(string nombre_archivo){
         file = fstream(nombre_archivo, std::ios::in);
@@ -12,10 +14,15 @@ public:
     }
 
     RTree(string nombre_archivo){
+        diskreads = 0;
         abrirArchivo(nombre_archivo);
     }
 
     void cerrarArchivo() {file.close();}
+
+    int getReads() {return diskreads;} 
+
+    void resetReads() {diskreads = 0;} 
 
 
 
@@ -24,6 +31,7 @@ public:
         Nodo extraido;
         file.seekg(i * sizeof(Nodo));
         file.read(reinterpret_cast<char *>(&extraido), sizeof(Nodo));
+        diskreads++;
         return extraido;
     }
 
@@ -89,4 +97,36 @@ public:
         //retorna el vector de coordenadas encontradas
         return sans;
     }
+
+        struct QueryResult{
+        int puntos;
+        int diskreads;
+    };
+
+    QueryResult puntosConsulta(float x1, float y1, float x2, float y2){
+        QueryResult qr;
+        qr.puntos = encontrarPuntos(x1,y1,x2,y2).size() / 2; // cada punto tiene 2 coordenadas
+        qr.diskreads = getReads();
+        resetReads();
+        return qr;
+    }
+    
+    QueryResult QueryS(float s, int seed){
+
+        vector<QuerySquare> cuadrados = generarCuadrados(s, CUADRADOS, seed);
+        QueryResult qfinal;
+        qfinal.puntos = 0;
+        qfinal.diskreads = 0;
+        
+        for(int i = 0;i<cuadrados.size();i++){
+            QuerySquare &qs = cuadrados[i];
+            QueryResult qr = puntosConsulta(qs.x1, qs.y1, qs.x2, qs.y2);
+            qfinal.puntos += qr.puntos;
+            qfinal.diskreads += qr.diskreads;
+        }
+        return qfinal;
+    }
+
 };
+
+
