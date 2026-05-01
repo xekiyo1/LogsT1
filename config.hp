@@ -4,6 +4,15 @@
 #define PAD_SIZE 12
 #define MEMORY_SIZE 0
 #define DEBUG (int) 1
+#define CUADRADOS 100
+
+// Los cuadrados usados en la consulta
+struct QuerySquare {
+    float x1;
+    float x2;
+    float y1;
+    float y2;
+};
 
 // Esto representa la info de cada hijo
 struct Hijo{
