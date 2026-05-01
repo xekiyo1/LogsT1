@@ -2,7 +2,7 @@ FILES=test.cpp
 OUT=a.out
 FLAGS=-O3 -o "$(OUT)"
 
-TEST-FILES=test.cpp
+TEST-FILES=test.cpp RTree.cpp STR.cpp Nearest_X.cpp
 TEST-FLAGS= -Wall -DSAN=1 -fsanitize=address -fsanitize=undefined $(FLAGS)
 
 compile:
@@ -22,5 +22,5 @@ test:
 clean:
 	touch placeholder.out
 	touch placeholder.bin
-	ls | grep -P "^(?!=europa|test)\w+\.bin" | xargs -d "\n" rm
+	ls | grep -P "^(?!europa|test|random)\w+\.bin" | xargs -d "\n" rm
 	rm *.out
