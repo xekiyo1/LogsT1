@@ -72,7 +72,7 @@ public:
             //
             // 2. si el rectangulito NO está includo en nuestra búsqueda, ignorarlo brutalmente
 
-            for(int i = 0; i < actual.hijos(); i++){
+            for(int i = 0; i < actual.k; i++){
                 Hijo son = actual.hijos[i];
                 if(se_intersectan(x1,y1,x2,y2,son)){
                     if(son.valor == -1){ //es hoja
