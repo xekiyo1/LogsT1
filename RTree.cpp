@@ -1,4 +1,5 @@
 #include "config.hp"
+#include "headers.h"
 using namespace std;
 
 class RTree{
@@ -6,13 +7,17 @@ private:
     fstream file;
 public:
     void abrirArchivo(string nombre_archivo){
-        file = fstream(filename, std::ios::in);
-        if(!file.is_open()) throw logic_error("no se abrió el Rtree :c");
+        file = fstream(nombre_archivo, std::ios::in);
+        if(!file.is_open()) throw logic_error("RTree:: no se abrió el RTree");
+    }
+
+    RTree(string nombre_archivo){
+        abrirArchivo(nombre_archivo);
     }
 
     void cerrarArchivo() {file.close();}
 
-    Rtree(string nombre_archivo){abrirArchivo(nombre_archivo);}
+
 
     //busca un nodo según su índice
     Nodo obtenerIndice(unsigned long long i){
@@ -54,7 +59,7 @@ public:
 
         while(!pendiente.empty()){
             //así avanzas una queue de C++
-            int idx = pendiente.top();
+            int idx = pendiente.front();
             pendiente.pop();
             
             Nodo actual = obtenerIndice(idx); //aquí leemos el archivo
