@@ -1,6 +1,7 @@
 #ifndef HPEADER
     #define HPEADER
     #include "config.hp"
+    #include "headers.h"
 #endif
 
 void STR(string infile, string outfile){
@@ -10,7 +11,8 @@ void STR(string infile, string outfile){
 
     ifstream file(infile, ios::binary);
     if (!file) {
-        cerr << "Error opening file for reading."<<endl;
+        cerr << "STR:: Error opening file for reading named "<< infile << endl;
+        exit(1);
     }
 
     while (file.read(reinterpret_cast<char *>(buffer), BLOCK)) {

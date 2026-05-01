@@ -1,5 +1,4 @@
-#include "Nearest_X.cpp"
-#include "STR.cpp"
+#include "headers.h"
 
 #include <bits/stdc++.h>
 using namespace std;

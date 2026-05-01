@@ -1,6 +1,7 @@
 #ifndef HPEADER
     #define HPEADER
     #include "config.hp"
+    #include "headers.h"
 #endif
 
 void Nearest_X(string infile, string outfile){
@@ -9,8 +10,9 @@ void Nearest_X(string infile, string outfile){
     vector<Hijo> init; // aquí se guardarán los puntos iniciales en bruto
 
     ifstream file(infile, ios::binary);
-    if (!file) {
-        cerr << "Error opening file for reading."<<endl;
+    if (!file.is_open()) {
+        cerr << "Nearest_X.cpp:: Error opening file for reading named " << infile <<endl;
+        exit(1);
     }
 
     while (file.read(reinterpret_cast<char *>(buffer), BLOCK)) {
@@ -35,10 +37,10 @@ void Nearest_X(string infile, string outfile){
     vector<Nodo> final(1);
 
     //nodo iniciales
-    for(int i=0;i<init.size();i+=HIJOS_NODO){
+    for(unsigned long int i=0;i<init.size();i+=HIJOS_NODO){
         NodoCalculador nuevo;
 
-        for(int j=0;j<HIJOS_NODO && i+j<init.size();j++) //añadir los b hijos a partir de esta posición
+        for(unsigned long int j=0;j<HIJOS_NODO && i+j<init.size();j++) //añadir los b hijos a partir de esta posición
             nuevo.addChild(init[i+j]);
 
         nuevo.idx = final.size(); //añadir el nodo real al árbol final
@@ -55,7 +57,7 @@ void Nearest_X(string infile, string outfile){
         sort(bulk.begin(),bulk.end(), [](NodoCalculador &a, NodoCalculador &b)
             { return a.centerX() < b.centerX() ; });
 
-        for(int i=0;i<bulk.size();i+=HIJOS_NODO){
+        for(unsigned long int i=0;i<bulk.size();i+=HIJOS_NODO){
             NodoCalculador nuevo;
 
             for(int j=0;j<HIJOS_NODO;j++) //añadir los b hijos a partir de esta posición
