@@ -1,4 +1,4 @@
-FILES=test.cpp
+FILES=test.cpp RTree.cpp STR.cpp Nearest_X.cpp
 OUT=a.out
 FLAGS=-O3 -o "$(OUT)"
 
