@@ -72,7 +72,16 @@ public:
             //
             // 2. si el rectangulito NO está includo en nuestra búsqueda, ignorarlo brutalmente
 
-            for(;;){
+            for(int i = 0; i < actual.hijos(); i++){
+                Hijo son = actual.hijos[i];
+                if(se_intersectan(x1,y1,x2,y2,son)){
+                    if(son.valor == -1){ //es hoja
+                        sans.push_back(son.x1);
+                        sans.push_back(son.y1);
+                    }else{ //no es hoja, hay que revisar su índice
+                        pendiente.push(son.valor);
+                    }
+                }
 
             }
         }
