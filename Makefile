@@ -24,3 +24,7 @@ clean:
 	touch placeholder.bin
 	ls | grep -P "^(?!europa|test|random)\w+\.bin" | xargs -d "\n" rm
 	rm *.out
+
+
+allow-cli:
+	chmod +rx ./sh/cli.sh
