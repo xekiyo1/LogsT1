@@ -1,21 +1,37 @@
-#ifndef HPEADER
-    #define HPEADER
-    #include "config.hp"
-    #include "headers.h"
-#endif
-
 struct AbstractRtreeConstructor{
-private:
-    virtual vector<NodoCalculador> groupHijos(vector<Hijo> &og, vector<Nodo> &final);
-    virtual vector<NodoCalculador> groupNodos(vector<NodoCalculador> &og, vector<Nodo> &final);
+    string name = "RTree";
+protected:
+    ofstream resultado;
+    int cantidadNodos;
+
+    /// Overload que permite diferenciar entre la ordenación de Hijo y de NodoCalculador.
+    /// Necesario para diferenciar las ordenaciones en groupNodos.
+    void sorterX(vector<Hijo>::iterator begin, vector<Hijo>::iterator end){
+        sort(begin,end, [](Hijo &a, Hijo &b) { return a.x1 < b.x1; });
+    }
+    void sorterX(vector<NodoCalculador>::iterator begin, vector<NodoCalculador>::iterator end){
+        sort(begin,end, [](NodoCalculador &a, NodoCalculador &b) { return a.centerX() < b.centerX(); });
+    }
+    void sorterY(vector<Hijo>::iterator begin, vector<Hijo>::iterator end){
+        sort(begin,end, [](Hijo &a, Hijo &b) { return a.y1 < b.y1; });
+    }
+    void sorterY(vector<NodoCalculador>::iterator begin, vector<NodoCalculador>::iterator end){
+        sort(begin,end, [](NodoCalculador &a, NodoCalculador &b) { return a.centerY() < b.centerY(); });
+    }
+
+    /// Función que agrupa los nodos de og y añade los resultantes a dest, que puede ser
+    /// vector de Hijo o vector de NodoCalculador.
+    /// También los castea y añade al vector de nodos finales.
+    virtual void groupNodos(vector<Hijo> &og, vector<NodoCalculador> &dest){}
+    virtual void groupNodos(vector<NodoCalculador> &og, vector<NodoCalculador> &dest){}
 public:
-    string name;
-    void CreateRtree(string infile, string outfile){
+    void CreateRTree(string infile, string outfile){
         float buffer[ FLOAT_BLOCK ]; // 512 puntos (1024 floats)
 
         vector<Hijo> init; // aquí se guardarán los puntos iniciales en bruto
 
         ifstream file(infile, ios::binary);
+
         if (!file.is_open()) {
             cerr << name << ":: Error opening file for reading named " << infile <<endl;
             exit(1);
@@ -33,32 +49,37 @@ public:
         }
         file.close();
 
+        //inicializar información de salida
+        resultado = ofstream(outfile);
+        //dejar espacio para la raíz
+        resultado.seekp(sizeof(Nodo));
+        cantidadNodos = 1;
 
-        // aquí guardaremos los que estamos ordenando
-        // aquí los nodos finales ya creados, que luego será escrito como archivo
-        vector<Nodo> final(1);
+        //inicializar nodos
+        vector<NodoCalculador> bulk,bulk2;
+        cerr<<init.size()<<endl;
+        groupNodos(init, bulk);
+        init.clear(); //ya fueron copiados a bulk
 
-        //nodo iniciales
-        vector<NodoCalculador> bulk = groupHijos(init), bulk2;
-        init.clear();
-
-        //hacer lo mismo pero en "bulk" hasta que se puedan guardar los nodos en la raíz
-        // bulk: B  B
-        // bulk2: BB
+        //ir comprimiendo los nodos y añadiéndolos al vector final hasta llegar al tamaño deseado
         while(bulk.size() > HIJOS_NODO){
-            bulk2 = groupNodos(bulk);
-            bulk.clear(); //solo para ahorrar memoria
+            cerr<<"Nodos restantes: "<<bulk.size()<<endl;
+            cerr<<"Nodos totales: "<<cantidadNodos<<endl;
+            //agarra los nodos y los comprime en bulk2
+            groupNodos(bulk, bulk2);
+            //limpia bulk1 y ahora hay que seguir comprimiendo los comprimidos
+            bulk.clear();
             swap(bulk,bulk2);
         }
         
+        cerr<<"fin"<<endl;
+
         NodoCalculador raiz;
         for(NodoCalculador &hijoraiz : bulk)
             raiz.addChild(hijoraiz);
-        final[0] = raiz.nodo;
-
-        ofstream resultado(outfile);
-        for(Nodo &xd : final)
-            resultado.write(reinterpret_cast<const std::ostream::char_type *>(&xd),sizeof(Nodo));
+        resultado.seekp(0);
+        resultado.write(reinterpret_cast<const std::ostream::char_type *>(&raiz.nodo),sizeof(Nodo));
+        
         resultado.close();
     }
-}
+};
