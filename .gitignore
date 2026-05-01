@@ -3,3 +3,5 @@
 !europa.bin
 !random.bin
 querytest
+
+**/**.temp.cpp
