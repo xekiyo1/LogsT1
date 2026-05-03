@@ -1,4 +1,4 @@
 **/**.out
 **/**.bin
-!europa.bin
-!random.bin
+!binFiles/europa.bin
+!binFiles/random.bin
