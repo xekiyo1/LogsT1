@@ -23,15 +23,19 @@ test:
 	make clean
 	make compile-test
 	make exec
+
+
 clean:
-	touch placeholder.out
-	install -Dv /dev/null bin/placeholder.out
-	touch placeholder.bin
-	ls | grep -P "^(?!europa|test|random)\w+\.bin" | xargs -d "\n" rm
-	rm *.out
-	rm ./*/*.out
-
-
+	find . -type f -name "*.bin" ! -path "*europa.bin" ! -path "*test.bin" ! -path "*random.bin" -delete
+	find -type f -name "*.out" -delete
+clean-logs:
+	find -type f -name "*.log | *.csv"
 allow-cli:
 	chmod +rx ./sh/cli.sh
 	chmod +rxw ./sh/logger.sh
+
+init:
+	install -Dv /dev/null bin/commands/__init_placeholder__.out
+	install -Dv /dev/null bin/trees/__init_placeholder__.out
+	make clean
+	make allow-cli

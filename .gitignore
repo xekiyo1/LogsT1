@@ -1,5 +1,5 @@
-**/**.out
-**/**.bin
+**/**/*.out
+**/**/*.bin
 !europa.bin
 !random.bin
 querytest
