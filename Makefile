@@ -25,7 +25,7 @@ test:
 	make exec
 clean:
 	touch placeholder.out
-	touch bin/placeholder.out
+	install -Dv /dev/null bin/placeholder.out
 	touch placeholder.bin
 	ls | grep -P "^(?!europa|test|random)\w+\.bin" | xargs -d "\n" rm
 	rm *.out
