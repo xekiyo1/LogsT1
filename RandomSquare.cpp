@@ -1,5 +1,6 @@
 #include "config.hp"
 #include "headers.h"
+#include "RandomSquare.h"
 
 std::vector<QuerySquare> generarCuadrados(float s, int n, int seed){
 

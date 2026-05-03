@@ -1,7 +1,7 @@
 
 RTreeConst=RTreeConstructors/NearestXConstructor.cpp RTreeConstructors/STRConstructor.cpp RTreeConstructors/RTreeConstructor.cpp
 
-FILES=test.cpp RTree.cpp $(RTreeConst)
+FILES=test.cpp RTree.cpp RandomSquare.cpp $(RTreeConst)
 OUT=a.out
 FLAGS=-O3 -o "$(OUT)"
 
