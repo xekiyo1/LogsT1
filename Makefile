@@ -21,6 +21,13 @@ test:
 	make exec
 clean:
 	touch placeholder.out
+	touch bin/placeholder.out
 	touch placeholder.bin
 	ls | grep -P "^(?!europa|test|random)\w+\.bin" | xargs -d "\n" rm
 	rm *.out
+	rm ./*/*.out
+
+
+allow-cli:
+	chmod +rx ./sh/cli.sh
+	chmod +rxw ./sh/logger.sh
