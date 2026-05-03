@@ -1,4 +1,4 @@
-#include "RTree.h"
+#include "RTreeConstructor.h"
 using namespace std;
 
 
@@ -36,7 +36,7 @@ void AbstractTreeConstructor::CreateRTree(string infile, string outfile, int N){
     //inicializar nodos
     vector<NodoCalculador> bulk,bulk2;
     #ifdef LOGLEVEL
-        if(LOGLEVEL > 1)cout<<"Puntos incluidos: "<<init.size()<<endl;
+        if constexpr (LOGLEVEL > 1)cout<<"Puntos incluidos: "<<init.size()<<endl;
     #endif
 
     groupNodos(init, bulk);
@@ -45,7 +45,7 @@ void AbstractTreeConstructor::CreateRTree(string infile, string outfile, int N){
     //ir comprimiendo los nodos y añadiéndolos al vector final hasta llegar al tamaño deseado
     while(bulk.size() > HIJOS_NODO){
         #ifdef LOGLEVEL
-            if(LOGLEVEL > 1){
+            if constexpr (LOGLEVEL > 1){
                 cout<<"Nodos restantes por condensar: "<<bulk.size()<<endl;
                 cout<<"Nodos totales: "<<cantidadNodos<<endl;
             }
@@ -58,7 +58,7 @@ void AbstractTreeConstructor::CreateRTree(string infile, string outfile, int N){
     }
 
     #ifdef LOGLEVEL
-        if(LOGLEVEL > 1)cout<<"fin construcción"<<endl;
+        if constexpr (LOGLEVEL > 1)cout<<"fin construcción"<<endl;
     #endif
 
     NodoCalculador raiz;

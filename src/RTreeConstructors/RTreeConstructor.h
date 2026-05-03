@@ -1,3 +1,5 @@
+#ifndef RTREECONSTRUCTOR_H
+#define RTREECONSTRUCTOR_H
 #include "../config.hp"
 #include <bits/stdc++.h> 
 using namespace std;
@@ -46,3 +48,4 @@ protected:
     void groupNodos(vector<Hijo> &og, vector<NodoCalculador> &dest);
     void groupNodos(vector<NodoCalculador> &og, vector<NodoCalculador> &dest);
 };
+#endif // RTREECONSTRUCTOR_H

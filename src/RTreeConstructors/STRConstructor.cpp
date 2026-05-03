@@ -1,4 +1,4 @@
-#include "RTree.h"
+#include "RTreeConstructor.h"
 using namespace std;
 
 template <typename TipoNodo>

@@ -3,7 +3,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#include "./RTreeConstructors/RTree.h"
+#include "./RTreeConstructors/RTreeConstructor.h"
 #include "util/calcTime/calcTime.h"
 
 #endif

@@ -1,29 +1,33 @@
-RTreeConst=RTreeConstructors/NearestXConstructor.cpp RTreeConstructors/STRConstructor.cpp RTreeConstructors/RTreeConstructor.cpp
-Tester=RTree.cpp RandomSquare.cpp
-Timer="util/calcTime/calcTime.cpp"
+RTreeConst=src/RTreeConstructors/NearestXConstructor.cpp src/RTreeConstructors/STRConstructor.cpp src/RTreeConstructors/RTreeConstructor.cpp
+Tester=src/RTree.cpp src/RandomSquare/RandomSquare.cpp
+Timer=src/util/calcTime/calcTime.cpp
 
-FILES=test.cpp $(Tester) $(RTreeConst) $(Timer)
+FILES-CONSTRUCT=src/main/createTrees.cpp $(RTreeConst) $(Timer)
+FLAGS-CONSTRUCT=-O3 -o "$(OUT)"
+
+FILES-QUERY=src/main/treeQueries.cpp $(Tester)
+FLAGS-QUERY= -Wall -DSAN=1 -fsanitize=address -fsanitize=undefined $(FLAGS)
+
 OUT=a.out
-FLAGS=-O3 -o "$(OUT)"
 
-TEST-FILES=$(FILES)
-TEST-FLAGS= -Wall -DSAN=1 -fsanitize=address -fsanitize=undefined $(FLAGS)
-
-compile:
-	g++ $(FLAGS) $(FILES)
 exec:
 	./$(OUT)
+
+compile-construct:
+	g++ $(FLAGS-CONSTRUCT) $(FILES-CONSTRUCT)
+run-construct:
+	make compile-construct
+	make exec
+
+compile-query:
+	g++ $(FLAGS-QUERY) $(FILES-QUERY)
+run-query:
+	make compile-query
+	make exec
+
 run:
-	make compile
-	make exec
-
-compile-test:
-	g++ $(TEST-FLAGS) $(TEST-FILES)
-test:
-	make clean
-	make compile-test
-	make exec
-
+	make run-construct
+	make run-query
 
 clean:
 	find . -type f -name "*.bin" ! -path "*europa.bin" ! -path "*test.bin" ! -path "*random.bin" -delete
