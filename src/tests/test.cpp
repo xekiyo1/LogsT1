@@ -8,10 +8,8 @@ NearestXConstructor NearestX;
 STRConstructor STR;
 HPTimer tim;
 
-ofstream file(SALIDA);
-
 //imprime resultados a consola y archivo
-void showResults(vector<unsigned long long> &xs){
+void showResults(vector<unsigned long long> &xs, ofstream &file){
     for(unsigned long long &x : xs){
         cout<<x<<' ';
         file<<x<<';';
@@ -25,6 +23,10 @@ int main() {
     vector<unsigned long long> timesNX;
     vector<unsigned long long> timesSTR;
 
+
+    ofstream file(SALIDA);
+
+    file<<"Potenciade2";
     for(unsigned int i=MIN_2N; i <= MAX_2N;i++){
         file<<';'<<i;
         unsigned int N = 1<<i;
@@ -42,11 +44,11 @@ int main() {
 
     cout<<"Tiempos de construcción NearestX:"<<endl;
     file<<"NearestX;";
-    showResults(timesNX);
+    showResults(timesNX, file);
     
     cout<<"Tiempos de construcción STR:"<<endl;
     file<<"STR;";
-    showResults(timesSTR);
+    showResults(timesSTR, file);
 
     file.close();
     cout<<"Resultados guardados en "<<SALIDA<<endl;
