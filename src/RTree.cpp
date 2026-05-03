@@ -1,6 +1,6 @@
 #include "config.hp"
 #include "headers.h"
-#include "RandomSquare.h"
+#include "./util/RandomSquare/RandomSquare.h"
 using namespace std;
 
 class RTree{
