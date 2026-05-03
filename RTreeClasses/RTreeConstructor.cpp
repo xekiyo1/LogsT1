@@ -1,17 +1,23 @@
-struct AbstractRtreeConstructor{
-    string name = "RTree";
+/**
+ * Clase que incluye el algoritmo para crear un RTree usando una rutina de ordenamiento no especificada.
+ * No debe utilizarse por sí misma.
+ */
+struct RtreeConstructor{
+    /// Tipo de RTree
+    static const string name = "RTree";
 protected:
     ofstream resultado;
     int cantidadNodos;
 
-    /// Overload que permite diferenciar entre la ordenación de Hijo y de NodoCalculador.
-    /// Necesario para diferenciar las ordenaciones en groupNodos.
+    /// Ordena un vector de Hijo según su coordenada X
     void sorterX(vector<Hijo>::iterator begin, vector<Hijo>::iterator end){
         sort(begin,end, [](Hijo &a, Hijo &b) { return a.x1 < b.x1; });
     }
+    /// Ordena un vector de Hijo según su centro en X
     void sorterX(vector<NodoCalculador>::iterator begin, vector<NodoCalculador>::iterator end){
         sort(begin,end, [](NodoCalculador &a, NodoCalculador &b) { return a.centerX() < b.centerX(); });
     }
+    ///
     void sorterY(vector<Hijo>::iterator begin, vector<Hijo>::iterator end){
         sort(begin,end, [](Hijo &a, Hijo &b) { return a.y1 < b.y1; });
     }
@@ -71,7 +77,7 @@ public:
             bulk.clear();
             swap(bulk,bulk2);
         }
-        
+
         cerr<<"fin"<<endl;
 
         NodoCalculador raiz;
@@ -79,7 +85,7 @@ public:
             raiz.addChild(hijoraiz);
         resultado.seekp(0);
         resultado.write(reinterpret_cast<const std::ostream::char_type *>(&raiz.nodo),sizeof(Nodo));
-        
+
         resultado.close();
     }
 };

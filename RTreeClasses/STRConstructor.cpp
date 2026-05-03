@@ -1,5 +1,5 @@
-struct STRConstructor : AbstractRtreeConstructor{
-    string name = "STR";
+struct STRConstructor : RtreeConstructor{
+    static const string name = "STR";
 private:
     template <typename TipoNodo>
     void groupGeneric(vector<TipoNodo> &bulk, vector<NodoCalculador> &dest){

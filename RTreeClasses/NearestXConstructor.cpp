@@ -1,5 +1,5 @@
-struct NearestXConstructor : AbstractRtreeConstructor{
-    string name = "NearestX";
+struct NearestXConstructor : RtreeConstructor{
+    static const string name = "NearestX";
 private:
     template <typename TipoNodo>
     void groupGeneric(vector<TipoNodo> &og, vector<NodoCalculador> &dest){
@@ -16,8 +16,6 @@ private:
 
             dest.push_back(nuevo); // y el nearestx al nivel actual de nodos
         }
-
-        return;
     }
 protected:
     void groupNodos(vector<Hijo> &og, vector<NodoCalculador> &dest) override{
@@ -26,4 +24,6 @@ protected:
     void groupNodos(vector<NodoCalculador> &og, vector<NodoCalculador> &dest) override{
         groupGeneric<NodoCalculador>(og, dest);
     }
-}NearestX;
+}
+/** Constructor de RTrees con NearestX */
+NearestX;
