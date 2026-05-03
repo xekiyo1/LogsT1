@@ -6,8 +6,12 @@
 #define HIJOS_NODO 204
 #define PAD_SIZE 12
 #define MEMORY_SIZE 0
-#define DEBUG (int) 1
+#define DEBUG (int) 0
 #define CUADRADOS 100
+
+//Macros para probar tiempo de construcción en potencias de dos
+#define MIN_2N 15
+#define MAX_2N 24
 
 // Los cuadrados usados en la consulta
 struct QuerySquare {
