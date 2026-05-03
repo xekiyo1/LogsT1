@@ -1,7 +1,7 @@
 #ifndef HPEADER
     #define HPEADER
-    #include "config.hp"
-    #include "headers.h"
+    #include "../config.hp"
+#include "../headers.h"
 #endif
 
 void STR(string infile, string outfile){
