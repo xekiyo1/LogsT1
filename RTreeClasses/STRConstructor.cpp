@@ -1,5 +1,6 @@
+#include "RTreeConstructor.cpp"
 struct STRConstructor : RtreeConstructor{
-    static const string name = "STR";
+    static string name = "STR";
 private:
     template <typename TipoNodo>
     void groupGeneric(vector<TipoNodo> &bulk, vector<NodoCalculador> &dest){

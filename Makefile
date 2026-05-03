@@ -1,8 +1,10 @@
-FILES=test.cpp RTree.cpp STR.cpp Nearest_X.cpp
+RTreeFiles= RTreeClasses/RTree.cpp RTreeClasses/NearestXConstructor.cpp RTreeClasses/STRConstructor.cpp RTreeClasses/RTreeConstructor.cpp
+
+FILES=testing/test.cpp $(RTreeFiles)
 OUT=a.out
 FLAGS=-O3 -o "$(OUT)"
 
-TEST-FILES=test.cpp RTree.cpp STR.cpp Nearest_X.cpp
+TEST-FILES=testing/test.cpp $(RTreeFiles)
 TEST-FLAGS= -Wall -DSAN=1 -fsanitize=address -fsanitize=undefined $(FLAGS)
 
 compile:

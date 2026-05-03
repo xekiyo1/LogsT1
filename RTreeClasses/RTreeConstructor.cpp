@@ -1,10 +1,14 @@
+#include "../AuxiliaryClasses.cpp"
+#include "../config.hp"
+#include <bits/stdc++.h>
+using namespace std;
 /**
  * Clase que incluye el algoritmo para crear un RTree usando una rutina de ordenamiento no especificada.
  * No debe utilizarse por sí misma.
  */
 struct RtreeConstructor{
     /// Tipo de RTree
-    static const string name = "RTree";
+    static string name = "RTree";
 protected:
     ofstream resultado;
     int cantidadNodos;
@@ -32,6 +36,9 @@ protected:
     virtual void groupNodos(vector<NodoCalculador> &og, vector<NodoCalculador> &dest){}
 public:
     void CreateRTree(string infile, string outfile){
+        infile = BIN + infile;
+        outfile = BIN + outfile;
+
         float buffer[ FLOAT_BLOCK ]; // 512 puntos (1024 floats)
 
         vector<Hijo> init; // aquí se guardarán los puntos iniciales en bruto

@@ -1,5 +1,4 @@
-#include "config.hp"
-#include "headers.h"
+#include "../headers.h"
 #include "RandomSquare.cpp"
 using namespace std;
 
@@ -9,7 +8,7 @@ private:
     int diskreads = 0; //para medir las I/Os
 public:
     void abrirArchivo(string nombre_archivo){
-        file = fstream(nombre_archivo, std::ios::in);
+        file = fstream(BIN + nombre_archivo, std::ios::in);
         if(!file.is_open()) throw logic_error("RTree:: no se abrió el RTree");
     }
 

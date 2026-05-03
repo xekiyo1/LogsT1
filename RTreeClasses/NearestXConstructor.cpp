@@ -1,5 +1,6 @@
+#include "RTreeConstructor.cpp"
 struct NearestXConstructor : RtreeConstructor{
-    static const string name = "NearestX";
+    static string name = "NearestX";
 private:
     template <typename TipoNodo>
     void groupGeneric(vector<TipoNodo> &og, vector<NodoCalculador> &dest){

@@ -1,5 +1,4 @@
 #ifndef CONFIG_HP
-#define CONFIG_HP
 
 #define BLOCK 4096 //se asume potencia de 2 o si no los mataré a todos
 #define FLOAT_BLOCK (int) (BLOCK/sizeof(float))
@@ -8,72 +7,6 @@
 #define MEMORY_SIZE 0
 #define DEBUG (int) 1
 #define CUADRADOS 100
-
-// Los cuadrados usados en la consulta
-struct QuerySquare {
-    float x1;
-    float x2;
-    float y1;
-    float y2;
-};
-
-// Esto representa la info de cada hijo
-struct Hijo{
-    float x1,x2,y1,y2; // rectángulo contenedor
-    int valor;
-};
-
-//esto es el nodo en sí
-struct Nodo{
-    int k; // cantidad actual contenida en el nodo
-    Hijo hijos[HIJOS_NODO]; // lugar donde se guardan hijos
-    char pad[PAD_SIZE]; // cosa inútil para rellenar el bloque no más
-};
-
-#include<bits/stdc++.h>
-using namespace std;
-//esto es para el ordenamiento
-struct NodoCalculador{
-    Nodo nodo;
-    int idx;
-    float x1,x2,y1,y2; // horizontal bounding box
-
-    NodoCalculador(){ nodo.k=0; } //necesario para updateRect
-
-    //actualiza el bounding box con nuevas variables
-    void updateRect(float ox1, float ox2, float oy1, float oy2){
-        if(nodo.k == 0){ // si no tengo hijos con los que comparar
-            x1 = ox1; y1 = oy1;
-            x2 = ox2; y2 = oy2;
-        }else{
-            x1 = min(x1,ox1); y1 = min(y1,oy1);
-            x2 = max(x2,ox2); y2 = max(y2,oy2);
-        }
-    }
-
-    float centerX(){ return (x1+x2) / 2.0; }
-    float centerY(){ return (y1+y2) / 2.0; }
-
-    //añadir hijo que ya está formateado como hijo
-    void addChild(Hijo& other){
-        if(nodo.k==HIJOS_NODO) throw logic_error("te odio no puedo mantener tantos hijos");
-        updateRect(other.x1, other.x2, other.y1, other.y2);
-        nodo.hijos[nodo.k++] = other;
-    }
-
-    //castear en hijo, poner mi rectángulo e índice en el arreglo
-    void pasteChild(Hijo &obj){
-        obj.x1 = x1; obj.x2 = x2;
-        obj.y1 = y1; obj.y2 = y2;
-        obj.valor = idx;
-    }
-    
-    //tomar otro nodo NodoCalculador y ponerlo como mi hijo sin tener que crear uno auxiliar
-    void addChild(NodoCalculador& other){
-        if(nodo.k==HIJOS_NODO) throw logic_error("te odio no puedo mantener tantos hijos");
-        updateRect(other.x1, other.x2, other.y1, other.y2);
-        other.pasteChild(nodo.hijos[nodo.k++]);
-    }
-};
+#define BIN "binFiles/"
 
 #endif
