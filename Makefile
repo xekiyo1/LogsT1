@@ -1,11 +1,12 @@
-
 RTreeConst=RTreeConstructors/NearestXConstructor.cpp RTreeConstructors/STRConstructor.cpp RTreeConstructors/RTreeConstructor.cpp
+Tester=RTree.cpp RandomSquare.cpp
+Timer="util/calcTime/calcTime.cpp"
 
-FILES=test.cpp RTree.cpp RandomSquare.cpp $(RTreeConst)
+FILES=test.cpp $(Tester) $(RTreeConst) $(Timer)
 OUT=a.out
 FLAGS=-O3 -o "$(OUT)"
 
-TEST-FILES=test.cpp $(RTreeConst)
+TEST-FILES=$(FILES)
 TEST-FLAGS= -Wall -DSAN=1 -fsanitize=address -fsanitize=undefined $(FLAGS)
 
 compile:
