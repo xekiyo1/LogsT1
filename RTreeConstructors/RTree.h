@@ -20,7 +20,7 @@ class AbstractTreeConstructor{
         virtual void groupNodos(vector<Hijo> &og, vector<NodoCalculador> &dest) {};
         virtual void groupNodos(vector<NodoCalculador> &og, vector<NodoCalculador> &dest) {};
 
-        void CreateRTree(string infile, string outfile);
+        void CreateRTree(string infile, string outfile, int N=INT_MAX);
         string name;
 };
 

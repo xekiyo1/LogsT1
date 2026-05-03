@@ -2,7 +2,7 @@
 using namespace std;
 
 
-void AbstractTreeConstructor::CreateRTree(string infile, string outfile){
+void AbstractTreeConstructor::CreateRTree(string infile, string outfile, int N){
     float buffer[ FLOAT_BLOCK ]; // 512 puntos (1024 floats)
 
     vector<Hijo> init; // aquí se guardarán los puntos iniciales en bruto
@@ -14,14 +14,15 @@ void AbstractTreeConstructor::CreateRTree(string infile, string outfile){
         exit(1);
     }
 
-    while (file.read(reinterpret_cast<char *>(buffer), BLOCK)) {
+    while (file.read(reinterpret_cast<char *>(buffer), BLOCK) && N>0) {
         // tener cuidado si la cosa no es múltiplo del bloque, qué se hace si nos quedamos sin bloques
-        for(int i=0;i<FLOAT_BLOCK;i+=2){
+        for(int i=0;N>0 && i<FLOAT_BLOCK;i+=2){
             Hijo aux;
             aux.x1 = aux.x2 = buffer[i];
             aux.y1 = aux.y2 = buffer[i+1];
             aux.valor = -1;
             init.push_back(aux); //guardo el punto en bruto
+            N--;
         }
     }
     file.close();
@@ -34,14 +35,14 @@ void AbstractTreeConstructor::CreateRTree(string infile, string outfile){
 
     //inicializar nodos
     vector<NodoCalculador> bulk,bulk2;
-    cerr<<init.size()<<endl;
+    if(DEBUG)cout<<init.size()<<endl;
     groupNodos(init, bulk);
     init.clear(); //ya fueron copiados a bulk
 
     //ir comprimiendo los nodos y añadiéndolos al vector final hasta llegar al tamaño deseado
     while(bulk.size() > HIJOS_NODO){
-        cerr<<"Nodos restantes: "<<bulk.size()<<endl;
-        cerr<<"Nodos totales: "<<cantidadNodos<<endl;
+        if(DEBUG)cout<<"Nodos restantes: "<<bulk.size()<<endl;
+        if(DEBUG)cout<<"Nodos totales: "<<cantidadNodos<<endl;
         //agarra los nodos y los comprime en bulk2
         groupNodos(bulk, bulk2);
         //limpia bulk1 y ahora hay que seguir comprimiendo los comprimidos
@@ -49,7 +50,7 @@ void AbstractTreeConstructor::CreateRTree(string infile, string outfile){
         swap(bulk,bulk2);
     }
 
-    cerr<<"fin"<<endl;
+    if(DEBUG)cout<<"fin"<<endl;
 
     NodoCalculador raiz;
     for(NodoCalculador &hijoraiz : bulk)

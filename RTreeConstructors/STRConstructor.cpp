@@ -6,7 +6,7 @@ void STRConstructor::groupGeneric(vector<TipoNodo> &bulk, vector<NodoCalculador>
     sorterX(bulk.begin(), bulk.end());
     int tamano = max<int>(sqrt((double)(bulk.size()) / double(HIJOS_NODO)), HIJOS_NODO);
 
-    cerr<<tamano<<endl;
+    if(DEBUG)cout<<tamano<<endl;
 
     for(unsigned int i=0;i<bulk.size();i+=tamano){
         auto begin = bulk.begin() + i;
