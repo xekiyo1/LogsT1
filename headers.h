@@ -5,7 +5,4 @@ using namespace std;
 
 #include "./RTreeConstructors/RTree.h"
 
-NearestXConstructor NearestX;
-STRConstructor STR;
-
 #endif
