@@ -1,3 +1,4 @@
+#include "../../config.hp"
 #include "calcTime.h"
 
 #include <chrono>
@@ -11,10 +12,9 @@ void HPTimer::start(){
 
 	startTime = high_resolution_clock::now();
 	
-	#ifdef DEBUG
-		if(DEBUG & verbose){
+	#ifdef LOGLEVEL
+		if(LOGLEVEL > 1)
 			cout << "calc_time(" << id <<"): Iniciando Operación costosa de tiempo" << endl;
-		}
 	#endif
 }
 
@@ -22,8 +22,8 @@ unsigned long long HPTimer::end(){
 	auto endTime = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(endTime-startTime);
 
-	#ifdef DEBUG
-		if(DEBUG & verbose){
+	#ifdef LOGLEVEL
+		if(LOGLEVEL){
 			cout << "calc_time(" << id <<"): Operación terminada en " << duration.count() << "ns." << endl;
 		}
 	#endif
@@ -48,10 +48,9 @@ unsigned long long calc_time( void (*foo)(void* arg_struct), void* args ){
 	auto end = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(end-start);
 
-	#ifdef DEBUG
-		if(DEBUG & verbose){
+	#ifdef LOGLEVEL
+		if(LOGLEVEL)
 			cout << "calc_time(" << id <<"): Operación terminada en " << duration.count() << "ns." << endl;
-		}
 	#endif
 
 	return (unsigned long long)duration.count();

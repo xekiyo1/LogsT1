@@ -35,14 +35,21 @@ void AbstractTreeConstructor::CreateRTree(string infile, string outfile, int N){
 
     //inicializar nodos
     vector<NodoCalculador> bulk,bulk2;
-    if(DEBUG)cout<<init.size()<<endl;
+    #ifdef LOGLEVEL
+        if(LOGLEVEL > 1)cout<<"Puntos incluidos: "<<init.size()<<endl;
+    #endif
+
     groupNodos(init, bulk);
     init.clear(); //ya fueron copiados a bulk
 
     //ir comprimiendo los nodos y añadiéndolos al vector final hasta llegar al tamaño deseado
     while(bulk.size() > HIJOS_NODO){
-        if(DEBUG)cout<<"Nodos restantes: "<<bulk.size()<<endl;
-        if(DEBUG)cout<<"Nodos totales: "<<cantidadNodos<<endl;
+        #ifdef LOGLEVEL
+            if(LOGLEVEL > 1){
+                cout<<"Nodos restantes por condensar: "<<bulk.size()<<endl;
+                cout<<"Nodos totales: "<<cantidadNodos<<endl;
+            }
+        #endif
         //agarra los nodos y los comprime en bulk2
         groupNodos(bulk, bulk2);
         //limpia bulk1 y ahora hay que seguir comprimiendo los comprimidos
@@ -50,7 +57,9 @@ void AbstractTreeConstructor::CreateRTree(string infile, string outfile, int N){
         swap(bulk,bulk2);
     }
 
-    if(DEBUG)cout<<"fin"<<endl;
+    #ifdef LOGLEVEL
+        if(LOGLEVEL > 1)cout<<"fin construcción"<<endl;
+    #endif
 
     NodoCalculador raiz;
     for(NodoCalculador &hijoraiz : bulk)
