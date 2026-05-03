@@ -2,14 +2,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define SALIDA "constTest.csv"
+#define SALIDA "tiemposCreacion.csv"
+const string BIN_PATH = "bin/data/";
+const string OUT_PATH = "bin/trees/";
 
 NearestXConstructor NearestX;
 STRConstructor STR;
 HPTimer tim;
 
 //imprime resultados a consola y archivo
-void showResults(vector<unsigned long long> &xs, ofstream &file){
+void showResults(vector<unsigned long long> &xs, ofstream &file, string name){
+    cout<<"Tiempos de construcción "<<name<<':'<<endl;
+    file<<name<<';';
+
     for(unsigned long long &x : xs){
         cout<<x<<' ';
         file<<x<<';';
@@ -19,36 +24,43 @@ void showResults(vector<unsigned long long> &xs, ofstream &file){
 }
 
 
-int main() {
-    vector<unsigned long long> timesNX;
-    vector<unsigned long long> timesSTR;
+int main(int argc,char **argv) {
+    vector<unsigned long long> timesNX_Eur;
+    vector<unsigned long long> timesSTR_Eur;
+    vector<unsigned long long> timesNX_Ran;
+    vector<unsigned long long> timesSTR_Ran;
 
+    string infile = argv[0];
 
     ofstream file(SALIDA);
 
-    file<<"Potenciade2";
     for(unsigned int i=MIN_2N; i <= MAX_2N;i++){
         file<<';'<<i;
-        unsigned int N = 1<<i;
+        const unsigned int N = 1<<i;
         tim.start();
-        NearestX.CreateRTree("europa.bin", "arbolitoNearestX.bin", N);
-        timesNX.push_back(tim.end());
+        NearestX.CreateRTree(BIN_PATH + "europa.bin", OUT_PATH + "EuropaNX.bin", N);
+        timesNX_Eur.push_back(tim.end());
 
         tim.start();
-        STR.CreateRTree("europa.bin", "arbolitoSTR.bin", N);
-        timesSTR.push_back(tim.end());
+        STR.CreateRTree(BIN_PATH + "europa.bin", OUT_PATH + "EuropaSTR.bin", N);
+        timesSTR_Eur.push_back(tim.end());
+
+        tim.start();
+        NearestX.CreateRTree(BIN_PATH + "random.bin", OUT_PATH + "RandomNX.bin", N);
+        timesNX_Ran.push_back(tim.end());
+
+        tim.start();
+        STR.CreateRTree(BIN_PATH + "random.bin", OUT_PATH + "RandomSTR.bin", N);
+        timesSTR_Ran.push_back(tim.end());
     }
     file<<'\n'; 
 
     cout<<"Se construyeron árboles para las potencias 2^i con i entre: ["<<MIN_2N<<" - "<<MAX_2N<<"]\n"<<endl;
 
-    cout<<"Tiempos de construcción NearestX:"<<endl;
-    file<<"NearestX;";
-    showResults(timesNX, file);
-    
-    cout<<"Tiempos de construcción STR:"<<endl;
-    file<<"STR;";
-    showResults(timesSTR, file);
+    showResults(timesNX_Eur, file, "EuropaNX");
+    showResults(timesSTR_Eur, file, "EuropaSTR");
+    showResults(timesNX_Ran, file, "RandomNX");
+    showResults(timesSTR_Ran, file, "RandomSTR");
 
     file.close();
     cout<<"Resultados guardados en "<<SALIDA<<endl;
