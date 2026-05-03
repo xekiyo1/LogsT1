@@ -3,8 +3,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#include "RTreeConstructors/NearestXConstructor.h"
-#include "RTreeConstructors/STRConstructor.h"
+#include "./RTreeConstructors/RTree.h"
 
 NearestXConstructor NearestX;
 STRConstructor STR;

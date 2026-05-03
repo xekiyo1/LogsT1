@@ -5,7 +5,7 @@ FILES=test.cpp RTree.cpp $(RTreeConst)
 OUT=a.out
 FLAGS=-O3 -o "$(OUT)"
 
-TEST-FILES=test.cpp RTree.cpp $(RTreeConst)
+TEST-FILES=test.cpp $(RTreeConst)
 TEST-FLAGS= -Wall -DSAN=1 -fsanitize=address -fsanitize=undefined $(FLAGS)
 
 compile:

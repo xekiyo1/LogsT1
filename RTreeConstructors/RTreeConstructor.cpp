@@ -1,6 +1,8 @@
-#include "RTreeConstructor.h"
+#include "RTree.h"
 using namespace std;
-void AbstractRtreeConstructor::CreateRTree(string infile, string outfile){
+
+
+void AbstractTreeConstructor::CreateRTree(string infile, string outfile){
     float buffer[ FLOAT_BLOCK ]; // 512 puntos (1024 floats)
 
     vector<Hijo> init; // aquí se guardarán los puntos iniciales en bruto
@@ -56,4 +58,20 @@ void AbstractRtreeConstructor::CreateRTree(string infile, string outfile){
     resultado.write(reinterpret_cast<const std::ostream::char_type *>(&raiz.nodo),sizeof(Nodo));
 
     resultado.close();
+}
+
+
+void AbstractTreeConstructor::sorterX(vector<Hijo>::iterator begin, vector<Hijo>::iterator end){
+    sort(begin,end, [](Hijo &a, Hijo &b) { return a.x1 < b.x1; });
+}
+
+void AbstractTreeConstructor::sorterX(vector<NodoCalculador>::iterator begin, vector<NodoCalculador>::iterator end){
+    sort(begin,end, [](NodoCalculador &a, NodoCalculador &b) { return a.centerX() < b.centerX(); });
+}
+
+void AbstractTreeConstructor::sorterY(vector<Hijo>::iterator begin, vector<Hijo>::iterator end){
+    sort(begin,end, [](Hijo &a, Hijo &b) { return a.y1 < b.y1; });
+}
+void AbstractTreeConstructor::sorterY(vector<NodoCalculador>::iterator begin, vector<NodoCalculador>::iterator end){
+    sort(begin,end, [](NodoCalculador &a, NodoCalculador &b) { return a.centerY() < b.centerY(); });
 }

@@ -1,4 +1,4 @@
-#include "NearestXConstructor.h"
+#include "RTree.h"
 using namespace std;
 
 template <typename TipoNodo>
@@ -16,4 +16,12 @@ void NearestXConstructor::groupGeneric(vector<TipoNodo> &og, vector<NodoCalculad
 
         dest.push_back(nuevo); // y el nearestx al nivel actual de nodos
     }
+}
+
+
+void NearestXConstructor::groupNodos(vector<Hijo> &og, vector<NodoCalculador> &dest) {
+    groupGeneric<Hijo>(og, dest);
+}
+void NearestXConstructor::groupNodos(vector<NodoCalculador> &og, vector<NodoCalculador> &dest) {
+    groupGeneric<NodoCalculador>(og, dest);
 }

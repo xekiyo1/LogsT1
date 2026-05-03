@@ -1,4 +1,4 @@
-#include "STRConstructor.h"
+#include "RTree.h"
 using namespace std;
 
 template <typename TipoNodo>
@@ -28,4 +28,14 @@ void STRConstructor::groupGeneric(vector<TipoNodo> &bulk, vector<NodoCalculador>
             dest.push_back(nuevo); // y el nearestx al nivel actual de nodos
         }
     }
+}
+
+
+
+void STRConstructor::groupNodos(vector<NodoCalculador> &og, vector<NodoCalculador> &dest) {
+    groupGeneric<NodoCalculador>(og,dest);
+}
+
+void STRConstructor::groupNodos(vector<Hijo> &og, vector<NodoCalculador> &dest){
+    groupGeneric<Hijo>(og,dest);
 }
