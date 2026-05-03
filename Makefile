@@ -30,3 +30,4 @@ clean:
 
 allow-cli:
 	chmod +rx ./sh/cli.sh
+	chmod +rxw ./sh/logger.sh

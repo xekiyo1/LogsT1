@@ -4,3 +4,5 @@
 !random.bin
 
 **/**.temp.cpp
+
+**/**.log

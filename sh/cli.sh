@@ -4,6 +4,7 @@ main_loop(){
 	read command
 
 	stringarr=($command)
+	echo $command
 	
 
 	if [ "$command" == "list" ]; then
@@ -22,8 +23,10 @@ main_loop(){
 		echo "El comando ${stringarr[0]} no existe. ¿Compilaste los archivos?"
 	fi
 
+	
 	#if false; then
 	if [ "$command" != "exit" ]; then
+		echo "Comando \"$command\" finalizado"
 		main_loop
 	fi
 }
