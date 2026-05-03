@@ -9,16 +9,15 @@ main_loop(){
 	if [ "$command" == "list" ]; then
 		files=$(eval "ls ./bin/*.out")
 
-		echo "Lista de Comandos"
+		echo "Lista de Comandos":
 		for i in $files; do
 			no_ext=${i/.out}
-			echo ${no_ext:6}
+			echo ">	${no_ext:6}"
 		done
 		
 
 	elif [ -f bin/${stringarr[0]}.out ]; then
-		[ bin/${stringarr[0]}.out ]
-		echo "${stringarr[@]:1}"
+		bin/${stringarr[0]}.out ${stringarr[@]:1}
 	else
 		echo "El comando ${stringarr[0]} no existe. ¿Compilaste los archivos?"
 	fi
