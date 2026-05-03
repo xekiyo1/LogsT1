@@ -8,7 +8,7 @@ main_loop(){
 	
 
 	if [ "$command" == "list" ]; then
-		files=$(eval "ls ./bin/*.out")
+		files=$(find "ls ./bin/*.out")
 
 		echo "Lista de Comandos":
 		for i in $files; do
@@ -18,7 +18,7 @@ main_loop(){
 	elif [ "$command" == "exit" ]; then
 		echo "Bye-Bye"
 	elif [ -f bin/commands/${stringarr[0]}.out ]; then
-		bin/${stringarr[0]}.out ${stringarr[@]:1}
+		bin/commands/${stringarr[0]}.out ${stringarr[@]:1}
 	else
 		echo "El comando ${stringarr[0]} no existe. ¿Compilaste los archivos?"
 	fi

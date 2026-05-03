@@ -39,3 +39,8 @@ init:
 	install -Dv /dev/null bin/trees/__init_placeholder__.out
 	make clean
 	make allow-cli
+
+
+COMMAND_FLAGS=-O3 -Wall
+compile-build-trees:
+	g++ -o bin/commands/build_tree.out src/main/build_trees.cpp
