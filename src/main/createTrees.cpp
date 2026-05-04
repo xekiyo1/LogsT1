@@ -3,14 +3,25 @@
 using namespace std;
 
 #define SALIDA "tiemposCreacion.csv"
+/// Dirección donde se almacenan los archivos binarios de puntos
 const string BIN_PATH = "bin/data/";
+/// Dirección donde se guardarán los árboles creados
 const string OUT_PATH = "bin/trees/";
 
+/// Creador de árboles NearestX, instancia de NearestXConstructor
 NearestXConstructor NearestX;
+/// Creador de árboles STR, instancia de STRConstructor
 STRConstructor STR;
+/// Timer para medir el tiempo de creación
 HPTimer tim;
 
-//imprime resultados a consola y archivo
+/**
+ * Recibe los resultados de la iteración al crear un cierto tipo de RTree con un archivo específico y
+ * los muestra en consola, a la vez que los guarda a un archivo.
+ * @param xs Vector de resultados en nanosegundos para cada iteración.
+ * @param file Archivo en el que se escribirán los resultados (formato .csv)
+ * @param name Nombre del árbol que se utilizará para la fila del archivo.
+ */
 void showResults(vector<unsigned long long> &xs, ofstream &file, string name){
     cout<<"Tiempos de construcción "<<name<<':'<<endl;
     file<<name<<';';
@@ -23,7 +34,16 @@ void showResults(vector<unsigned long long> &xs, ofstream &file, string name){
     file<<'\n';
 }
 
-
+/**
+ * Crea árboles RTree utilizando los archivos de europa.bin y random.bin con el algoritmo NearestX y STR,
+ * utilizando potencias de 2 entre 2^15 y 2^24 inclusive.
+ *
+ * Registra los resultados de tiempo para cada combinación de archivo-tamaño-algoritmo en un archivo .csv,
+ * y los RTree resultantes corresponderán a los de tamaño 2^24.
+ * @param argc Sin utilizar
+ * @param argv Sin utilizar
+ * @return Código de error C++
+ */
 int main(int argc,char **argv) {
     vector<unsigned long long> timesNX_Eur;
     vector<unsigned long long> timesSTR_Eur;

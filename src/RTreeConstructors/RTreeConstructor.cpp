@@ -7,6 +7,7 @@ void AbstractTreeConstructor::CreateRTree(string infile, string outfile, int N){
 
     vector<Hijo> init; // aquí se guardarán los puntos iniciales en bruto
 
+    // FASE UNO: Leer puntos!!!!!
     ifstream file(infile, ios::binary);
 
     if (!file.is_open()) {
@@ -42,6 +43,7 @@ void AbstractTreeConstructor::CreateRTree(string infile, string outfile, int N){
     groupNodos(init, bulk);
     init.clear(); //ya fueron copiados a bulk
 
+    //LOOP PRINCIPAL: COMPRIMIR NODOS HASTA QUE ENTREN EN LA RAÍZ!!!1!!
     //ir comprimiendo los nodos y añadiéndolos al vector final hasta llegar al tamaño deseado
     while(bulk.size() > HIJOS_NODO){
         #ifdef LOGLEVEL
@@ -58,9 +60,10 @@ void AbstractTreeConstructor::CreateRTree(string infile, string outfile, int N){
     }
 
     #ifdef LOGLEVEL
-        if constexpr (LOGLEVEL > 1)cout<<"fin construcción"<<endl;
+        if constexpr (LOGLEVEL)cout<<"fin construcción de muchos nodos: "<<cantidadNodos<<endl;
     #endif
 
+    // Finalmente, meter todos los que quedan en la raíz y escribirla al inicio
     NodoCalculador raiz;
     for(NodoCalculador &hijoraiz : bulk)
         raiz.addChild(hijoraiz);
