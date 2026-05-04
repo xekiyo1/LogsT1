@@ -34,7 +34,7 @@ int main() {
 
     escribir("NearestX");
     for(float s : tamaños){
-        RTree arbol("bin/trees/EuropaNearestX.bin");
+        RTree arbol("bin/trees/EuropaNX.bin");
         RTree::QueryResult q = arbol.QueryS(s, 42);
         cout << "Tamaño: " << s << " Puntos encontrados: " << q.puntos << " I/Os: " << q.diskreads << endl;
 
@@ -66,7 +66,7 @@ int main() {
         escribir(';');
         puntos<<q.puntos;
         lecturas<<q.diskreads;
-    }
+    }   
 
 
     puntos.close();
