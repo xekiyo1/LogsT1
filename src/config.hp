@@ -1,19 +1,30 @@
 #ifndef CONFIG_HP
 #define CONFIG_HP
 
+/// Tamaño esperado de un bloque.
 #define BLOCK 4096 //se asume potencia de 2 o si no los mataré a todos
+/// Cantidad de puntos float que caben en un bloque.
 #define FLOAT_BLOCK (int) (BLOCK/sizeof(float))
+/// Cantidad máxima de Hijos que puede contener un Nodo del RTree.
 #define HIJOS_NODO 204
+/// Tamaño sobrante del bloque al escribir un Nodo.
 #define PAD_SIZE 12
+/// Tamaño asumido de memoria @deprecated
 #define MEMORY_SIZE 0
+/// Nivel de detalle para DEBUG, que se utiliza para decidir cuándo imprimir y cuándo no.
 #define LOGLEVEL (int) 1
+
 #define CUADRADOS 100
 
-//Macros para probar tiempo de construcción en potencias de dos
+/// Exponente mínimo al decidir cuántos puntos extraer de un archivo.
 #define MIN_2N 15
+/// Exponente máximo de dos que indica cuántos puntos se extraerán de los archivos.
 #define MAX_2N 24
 
-// Los cuadrados usados en la consulta
+/**
+ * Estructura que representa una query para un RTree. Contiene las coordenadas que corresponden al bounding box que
+ * se está consultando.
+ */
 struct QuerySquare {
     float x1;
     float y1;
@@ -21,63 +32,26 @@ struct QuerySquare {
     float y2;
 };
 
-// Esto representa la info de cada hijo
+/** Estructura que representa un hijo dentro de un nodo. Incluye el rectángulo que contiene a sus puntos y el
+ * índice del archivo donde se almacena el nodo en sí.*/
 struct Hijo{
-    float x1,x2,y1,y2; // rectángulo contenedor
+    float x1,x2,y1,y2;
+    /// Índice donde está almacenado el Nodo con estas coordenadas.
     int valor;
 };
 
-//esto es el nodo en sí
+/**
+ * Estructura del Nodo de un RTree, que representa la estructura que finalmente se escribe en el archivo.
+ * Contiene la cantidad de hijos que tiene el Nodo y la información de estos.
+ */
 struct Nodo{
-    int k; // cantidad actual contenida en el nodo
+    /// Cantidad de hijos que contiene el Nodo.
+    int k;
+    /// Arreglo que almacena a los hijos del nodo. Tiene tamaño fijo, así que hay que tener cuidado
+    /// de no revisar más allá del índice Nodo.k - 1 o se accederá a basura.
     Hijo hijos[HIJOS_NODO]; // lugar donde se guardan hijos
+    /// Relleno de bytes para completar el bloque.
     char pad[PAD_SIZE]; // cosa inútil para rellenar el bloque no más
-};
-
-#include<bits/stdc++.h>
-using namespace std;
-//esto es para el ordenamiento
-struct NodoCalculador{
-    Nodo nodo;
-    int idx;
-    float x1,x2,y1,y2; // horizontal bounding box
-
-    NodoCalculador(){ nodo.k=0; } //necesario para updateRect
-
-    //actualiza el bounding box con nuevas variables
-    void updateRect(float ox1, float ox2, float oy1, float oy2){
-        if(nodo.k == 0){ // si no tengo hijos con los que comparar
-            x1 = ox1; y1 = oy1;
-            x2 = ox2; y2 = oy2;
-        }else{
-            x1 = min(x1,ox1); y1 = min(y1,oy1);
-            x2 = max(x2,ox2); y2 = max(y2,oy2);
-        }
-    }
-
-    float centerX(){ return (x1+x2) / 2.0; }
-    float centerY(){ return (y1+y2) / 2.0; }
-
-    //añadir hijo que ya está formateado como hijo
-    void addChild(Hijo& other){
-        if(nodo.k==HIJOS_NODO) throw logic_error("te odio no puedo mantener tantos hijos");
-        updateRect(other.x1, other.x2, other.y1, other.y2);
-        nodo.hijos[nodo.k++] = other;
-    }
-
-    //castear en hijo, poner mi rectángulo e índice en el arreglo
-    void pasteChild(Hijo &obj){
-        obj.x1 = x1; obj.x2 = x2;
-        obj.y1 = y1; obj.y2 = y2;
-        obj.valor = idx;
-    }
-    
-    //tomar otro nodo NodoCalculador y ponerlo como mi hijo sin tener que crear uno auxiliar
-    void addChild(NodoCalculador& other){
-        if(nodo.k==HIJOS_NODO) throw logic_error("te odio no puedo mantener tantos hijos");
-        updateRect(other.x1, other.x2, other.y1, other.y2);
-        other.pasteChild(nodo.hijos[nodo.k++]);
-    }
 };
 
 #endif

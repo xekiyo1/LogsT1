@@ -1,7 +1,17 @@
 #ifndef RTREECONSTRUCTOR_H
 #define RTREECONSTRUCTOR_H
 #include "../config.hp"
-#include <bits/stdc++.h> 
+#include "NodoCalculador.h"
+
+#include <vector>
+#include <string>
+#include <climits>
+#include <algorithm>
+#include <iostream>
+#include <ostream>
+#include <fstream>
+#include <cmath>
+
 using namespace std;
 
 /**

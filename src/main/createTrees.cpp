@@ -1,7 +1,13 @@
 #include "../headers.h"
-#include <bits/stdc++.h>
+
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <ostream>
+#include <fstream>
 using namespace std;
 
+/// Archivo .csv en el que se guardan los tiempos medidos
 #define SALIDA "tiemposCreacion.csv"
 /// Dirección donde se almacenan los archivos binarios de puntos
 const string BIN_PATH = "bin/data/";
@@ -22,7 +28,7 @@ HPTimer tim;
  * @param file Archivo en el que se escribirán los resultados (formato .csv)
  * @param name Nombre del árbol que se utilizará para la fila del archivo.
  */
-void showResults(vector<unsigned long long> &xs, ofstream &file, string name){
+void showResults(vector<long long> &xs, ofstream &file, string name){
     cout<<"Tiempos de construcción "<<name<<':'<<endl;
     file<<name<<';';
 
@@ -45,10 +51,11 @@ void showResults(vector<unsigned long long> &xs, ofstream &file, string name){
  * @return Código de error C++
  */
 int main(int argc,char **argv) {
-    vector<unsigned long long> timesNX_Eur;
-    vector<unsigned long long> timesSTR_Eur;
-    vector<unsigned long long> timesNX_Ran;
-    vector<unsigned long long> timesSTR_Ran;
+    //Vectores donde se guardan los resultados de tiempo
+    vector<long long> timesNX_Eur;
+    vector<long long> timesSTR_Eur;
+    vector<long long> timesNX_Ran;
+    vector<long long> timesSTR_Ran;
 
     string infile = argv[0];
 
