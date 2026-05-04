@@ -14,7 +14,7 @@ vector<float> tamaños = {0.0025f, 0.005f, 0.01f, 0.025f, 0.05f};
 
 int main() {
     ofstream puntos(SALIDA_PUNTOS);
-    ofstream lecturas(SALIDA_PUNTOS);
+    ofstream lecturas(SALIDA_LECTURAS);
 
     escribir("Cuadrado");
     for(float s : tamaños){ escribir(';'<<s); }
@@ -22,7 +22,7 @@ int main() {
 
     escribir("STR");
     for(float s : tamaños){
-        RTree arbol("arbolitoSTR.bin");
+        RTree arbol("bin/trees/EuropaSTR.bin");
         RTree::QueryResult q = arbol.QueryS(s, 1);
         cout << "Tamaño: " << s << " Puntos encontrados: " << q.puntos << " I/Os: " << q.diskreads << endl;
 
@@ -34,7 +34,7 @@ int main() {
 
     escribir("NearestX");
     for(float s : tamaños){
-        RTree arbol("arbolitoNearestX.bin");
+        RTree arbol("bin/trees/EuropaNearestX.bin");
         RTree::QueryResult q = arbol.QueryS(s, 42);
         cout << "Tamaño: " << s << " Puntos encontrados: " << q.puntos << " I/Os: " << q.diskreads << endl;
 
@@ -42,6 +42,32 @@ int main() {
         puntos<<q.puntos;
         lecturas<<q.diskreads;
     }
+
+    escribir('\n');
+
+    escribir("Random STR");
+    for(float s : tamaños){
+        RTree arbol("bin/trees/RandomSTR.bin");
+        RTree::QueryResult q = arbol.QueryS(s, 1);
+        cout << "Tamaño: " << s << " Puntos encontrados: " << q.puntos << " I/Os: " << q.diskreads << endl;
+
+        puntos<<';'<<q.puntos;
+        lecturas<<';'<<q.diskreads;
+    }
+
+    escribir('\n');
+
+    escribir("Random NearestX");
+    for(float s : tamaños){
+        RTree arbol("bin/trees/RandomNX.bin");
+        RTree::QueryResult q = arbol.QueryS(s, 42);
+        cout << "Tamaño: " << s << " Puntos encontrados: " << q.puntos << " I/Os: " << q.diskreads << endl;
+
+        escribir(';');
+        puntos<<q.puntos;
+        lecturas<<q.diskreads;
+    }
+
 
     puntos.close();
     lecturas.close();
