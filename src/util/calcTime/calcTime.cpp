@@ -8,7 +8,8 @@ using namespace std;
 using namespace std::chrono;
 
 void HPTimer::start(){
-	id = rand() & (0xFF);
+	static int next_id = 0;
+	id = next_id++;
 
 	startTime = high_resolution_clock::now();
 	
@@ -34,8 +35,8 @@ unsigned long long HPTimer::end(){
 unsigned long long calc_time( void (*foo)(void* arg_struct), void* args ){
 	using namespace std::chrono;
 
-	int id = rand() & (0xFF);
-	int verbose = 0;
+	static int next_id = 0;
+	int id = next_id++;
 
 
 	auto start = high_resolution_clock::now();
