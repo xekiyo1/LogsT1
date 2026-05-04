@@ -3,17 +3,20 @@
 #include "./util/RandomSquare/RandomSquare.h"
 using namespace std;
 
+/// Dirección donde están guardados los RTrees
+const string T_PATH = "bin/trees/";
+
 class RTree{
 private:
     fstream file;
     int diskreads = 0; //para medir las I/Os
 public:
-    void abrirArchivo(string nombre_archivo){
-        file = fstream(nombre_archivo, std::ios::in);
+    void abrirArchivo(const string &nombre_archivo){
+        file = fstream(T_PATH + nombre_archivo, std::ios::in);
         if(!file.is_open()) throw logic_error("RTree:: no se abrió el RTree");
     }
 
-    RTree(string nombre_archivo){
+    RTree(const string &nombre_archivo){
         diskreads = 0;
         abrirArchivo(nombre_archivo);
     }
@@ -39,7 +42,7 @@ public:
 
     //funciona como un macro pa cachar no más si un hijo se intersecta conmigo
     bool se_intersectan(float x1, float y1, float x2, float y2, Hijo &son){
-    return !(son.x2 < x1 || son.x1 > x2 || son.y2 < y1 || son.y1 > y2);
+        return !(son.x2 < x1 || son.x1 > x2 || son.y2 < y1 || son.y1 > y2);
     }
 
     /*

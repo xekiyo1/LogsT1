@@ -1,6 +1,11 @@
 #include "RTreeConstructor.h"
 using namespace std;
 
+/// Dirección donde se almacenan los archivos binarios de puntos
+const string BIN_PATH = "bin/data/";
+/// Dirección donde se guardarán los árboles creados
+const string OUT_PATH = "bin/trees/";
+
 
 void AbstractTreeConstructor::CreateRTree(string infile, string outfile, int N){
     float buffer[ FLOAT_BLOCK ]; // 512 puntos (1024 floats)
@@ -10,7 +15,7 @@ void AbstractTreeConstructor::CreateRTree(string infile, string outfile, int N){
     vector<Hijo> init; // aquí se guardarán los puntos iniciales en bruto
 
     // FASE UNO: Leer puntos!!!!!
-    ifstream file(infile, ios::binary);
+    ifstream file(BIN_PATH + infile, ios::binary);
 
     if (!file.is_open()) {
         cout << name << ":: Error opening file for reading named " << infile <<endl;
@@ -66,7 +71,7 @@ void AbstractTreeConstructor::CreateRTree(string infile, string outfile, int N){
         raiz.addChild(hijoraiz);
     final[0] = raiz.nodo;
 
-    ofstream resultado(outfile);
+    ofstream resultado(OUT_PATH + outfile);
     for(Nodo& a : final)
         resultado.write(reinterpret_cast<const std::ostream::char_type *>(&a),sizeof(Nodo));
     resultado.close();

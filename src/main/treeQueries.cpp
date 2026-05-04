@@ -22,7 +22,7 @@ int main() {
 
     escribir("STR");
     for(float s : tamaños){
-        RTree arbol("bin/trees/EuropaSTR.bin");
+        RTree arbol("EuropaSTR.bin");
         RTree::QueryResult q = arbol.QueryS(s, 1);
         cout << "Tamaño: " << s << " Puntos encontrados: " << q.puntos << " I/Os: " << q.diskreads << endl;
 
@@ -34,7 +34,7 @@ int main() {
 
     escribir("NearestX");
     for(float s : tamaños){
-        RTree arbol("bin/trees/EuropaNX.bin");
+        RTree arbol("EuropaNX.bin");
         RTree::QueryResult q = arbol.QueryS(s, 42);
         cout << "Tamaño: " << s << " Puntos encontrados: " << q.puntos << " I/Os: " << q.diskreads << endl;
 
@@ -47,7 +47,7 @@ int main() {
 
     escribir("Random STR");
     for(float s : tamaños){
-        RTree arbol("bin/trees/RandomSTR.bin");
+        RTree arbol("RandomSTR.bin");
         RTree::QueryResult q = arbol.QueryS(s, 1);
         cout << "Tamaño: " << s << " Puntos encontrados: " << q.puntos << " I/Os: " << q.diskreads << endl;
 
@@ -59,7 +59,7 @@ int main() {
 
     escribir("Random NearestX");
     for(float s : tamaños){
-        RTree arbol("bin/trees/RandomNX.bin");
+        RTree arbol("RandomNX.bin");
         RTree::QueryResult q = arbol.QueryS(s, 42);
         cout << "Tamaño: " << s << " Puntos encontrados: " << q.puntos << " I/Os: " << q.diskreads << endl;
 

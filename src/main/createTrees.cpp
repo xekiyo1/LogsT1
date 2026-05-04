@@ -9,10 +9,6 @@ using namespace std;
 
 /// Archivo .csv en el que se guardan los tiempos medidos
 #define SALIDA "tiemposCreacion.csv"
-/// Dirección donde se almacenan los archivos binarios de puntos
-const string BIN_PATH = "bin/data/";
-/// Dirección donde se guardarán los árboles creados
-const string OUT_PATH = "bin/trees/";
 
 /// Creador de árboles NearestX, instancia de NearestXConstructor
 NearestXConstructor NearestX;
@@ -65,19 +61,19 @@ int main(int argc,char **argv) {
         file<<';'<<i;
         const unsigned int N = 1<<i;
         tim.start();
-        NearestX.CreateRTree(BIN_PATH + "europa.bin", OUT_PATH + "EuropaNX.bin", N);
+        NearestX.CreateRTree("europa.bin", "EuropaNX.bin", N);
         timesNX_Eur.push_back(tim.end());
 
         tim.start();
-        STR.CreateRTree(BIN_PATH + "europa.bin", OUT_PATH + "EuropaSTR.bin", N);
+        STR.CreateRTree("europa.bin", "EuropaSTR.bin", N);
         timesSTR_Eur.push_back(tim.end());
 
         tim.start();
-        NearestX.CreateRTree(BIN_PATH + "random.bin", OUT_PATH + "RandomNX.bin", N);
+        NearestX.CreateRTree("random.bin", "RandomNX.bin", N);
         timesNX_Ran.push_back(tim.end());
 
         tim.start();
-        STR.CreateRTree(BIN_PATH + "random.bin", OUT_PATH + "RandomSTR.bin", N);
+        STR.CreateRTree("random.bin", "RandomSTR.bin", N);
         timesSTR_Ran.push_back(tim.end());
     }
     file<<'\n'; 

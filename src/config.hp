@@ -13,7 +13,7 @@
 #define MEMORY_SIZE 0
 /// Nivel de detalle para DEBUG, que se utiliza para decidir cuándo imprimir y cuándo no.
 #define LOGLEVEL (int) 1
-
+/// Cantidad de queries que se realizan en las iteraciones de prueba @see main/treeQueries.cpp
 #define CUADRADOS 100
 
 /// Exponente mínimo al decidir cuántos puntos extraer de un archivo.
