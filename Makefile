@@ -2,10 +2,10 @@ RTreeConst=src/RTreeConstructors/NearestXConstructor.cpp src/RTreeConstructors/S
 Tester=src/RTree.cpp src/util/RandomSquare/RandomSquare.cpp
 Timer=src/util/calcTime/calcTime.cpp
 
-FILES-CONSTRUCT=src/main/createTrees.cpp $(RTreeConst) src/RTreeConstructors/NodoCalculador.cpp $(Timer)
+FILES-CONSTRUCT=$(RTreeConst) src/RTreeConstructors/NodoCalculador.cpp $(Timer)
 FLAGS-CONSTRUCT=-O3 -o "$(OUT)"
 
-FILES-QUERY=src/main/treeQueries.cpp $(Tester)
+FILES-QUERY=$(Tester)
 FLAGS-QUERY= -Wall -DSAN=1 -fsanitize=address -fsanitize=undefined 
 
 OUT=a.out
@@ -14,13 +14,13 @@ exec:
 	./$(OUT)
 
 compile-construct:
-	g++ $(FLAGS-CONSTRUCT) $(FILES-CONSTRUCT)
+	g++ $(FLAGS-CONSTRUCT) src/main/createTrees.cpp $(FILES-CONSTRUCT)
 run-construct:
 	make compile-construct
 	make exec
 
 compile-query:
-	g++ $(FLAGS-QUERY) $(FILES-QUERY)
+	g++ $(FLAGS-QUERY) src/main/treeQueries.cpp $(FILES-QUERY)
 run-query:
 	make compile-query
 	make exec
@@ -46,5 +46,19 @@ init:
 
 
 COMMAND_FLAGS=-O3 -Wall
-compile-build-trees:
-	g++ -o bin/commands/build_tree.out src/main/build_trees.cpp
+CUSTOM-BUILD-OUT=bin/commands/custom_build.out
+CUSTOM-QUERY-OUT=bin/commands/custom_query.out
+
+compile-custom:
+	g++ -o $(CUSTOM-BUILD-OUT) src/main/custom_build.cpp $(FILES-CONSTRUCT)
+	g++ -o bin/commands/custom_query.out src/main/custom_query.cpp $(FILES-QUERY)
+
+run-bonus:
+	make compile-custom
+	./$(CUSTOM-BUILD-OUT) europa_bonus.bin STR 24
+	./$(CUSTOM-QUERY-OUT) custom.bin -11 32 -1 40
+
+run-all:
+	make clean
+	make run
+	make run-bonus
