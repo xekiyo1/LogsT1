@@ -1,12 +1,12 @@
 RTreeConst=src/RTreeConstructors/NearestXConstructor.cpp src/RTreeConstructors/STRConstructor.cpp src/RTreeConstructors/RTreeConstructor.cpp
-Tester=src/RTree.cpp src/RandomSquare/RandomSquare.cpp
+Tester=src/RTree.cpp src/util/RandomSquare/RandomSquare.cpp
 Timer=src/util/calcTime/calcTime.cpp
 
 FILES-CONSTRUCT=src/main/createTrees.cpp $(RTreeConst) $(Timer)
 FLAGS-CONSTRUCT=-O3 -o "$(OUT)"
 
 FILES-QUERY=src/main/treeQueries.cpp $(Tester)
-FLAGS-QUERY= -Wall -DSAN=1 -fsanitize=address -fsanitize=undefined $(FLAGS)
+FLAGS-QUERY= -Wall -DSAN=1 -fsanitize=address -fsanitize=undefined 
 
 OUT=a.out
 
