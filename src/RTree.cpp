@@ -39,16 +39,7 @@ public:
 
     //funciona como un macro pa cachar no más si un hijo se intersecta conmigo
     bool se_intersectan(float x1, float y1, float x2, float y2, Hijo &son){
-        #define puntoContenido(a,b) (x1 <= a && a <= x2 && y1 <= b && b <= y2)
-
-        //bastan con incluir un único punto del rectángulo
-        if(puntoContenido(son.x1,son.y1)) return true;
-        if(puntoContenido(son.x1,son.y2)) return true;
-        if(puntoContenido(son.x2,son.y1)) return true;
-        if(puntoContenido(son.x2,son.y2)) return true;
-        
-        #undef puntoContenido
-        return false;
+    return !(son.x2 < x1 || son.x1 > x2 || son.y2 < y1 || son.y1 > y2);
     }
 
     /*
