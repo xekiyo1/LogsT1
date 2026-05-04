@@ -2,7 +2,7 @@ RTreeConst=src/RTreeConstructors/NearestXConstructor.cpp src/RTreeConstructors/S
 Tester=src/RTree.cpp src/util/RandomSquare/RandomSquare.cpp
 Timer=src/util/calcTime/calcTime.cpp
 
-FILES-CONSTRUCT=src/main/createTrees.cpp $(RTreeConst) $(Timer)
+FILES-CONSTRUCT=src/main/createTrees.cpp $(RTreeConst) src/RTreeConstructors/NodoCalculador.cpp $(Timer)
 FLAGS-CONSTRUCT=-O3 -o "$(OUT)"
 
 FILES-QUERY=src/main/treeQueries.cpp $(Tester)

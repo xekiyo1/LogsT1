@@ -32,7 +32,7 @@ void showResults(vector<long long> &xs, ofstream &file, string name){
     cout<<"Tiempos de construcción "<<name<<':'<<endl;
     file<<name<<';';
 
-    for(unsigned long long &x : xs){
+    for(long long &x : xs){
         cout<<x<<' ';
         file<<x<<';';
     }
