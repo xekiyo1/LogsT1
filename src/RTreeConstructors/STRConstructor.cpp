@@ -28,7 +28,7 @@ void STRConstructor::groupGeneric(vector<TipoNodo> &bulk, vector<NodoCalculador>
                 begin++;
             }
             nuevo.idx = cantidadNodos++; //añadir el nodo real al árbol final
-            resultado.write(reinterpret_cast<const std::ostream::char_type *>(&nuevo.nodo),sizeof(Nodo));
+            final.push_back(nuevo.nodo);
             dest.push_back(nuevo); // y el nearestx al nivel actual de nodos
         }
     }

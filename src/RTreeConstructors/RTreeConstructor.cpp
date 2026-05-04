@@ -4,6 +4,8 @@ using namespace std;
 
 void AbstractTreeConstructor::CreateRTree(string infile, string outfile, int N){
     float buffer[ FLOAT_BLOCK ]; // 512 puntos (1024 floats)
+    cantidadNodos = 1;
+    final.resize(1);
 
     vector<Hijo> init; // aquí se guardarán los puntos iniciales en bruto
 
@@ -28,11 +30,6 @@ void AbstractTreeConstructor::CreateRTree(string infile, string outfile, int N){
     }
     file.close();
 
-    //inicializar información de salida
-    resultado = ofstream(outfile);
-    //dejar espacio para la raíz
-    resultado.seekp(sizeof(Nodo));
-    cantidadNodos = 1;
 
     //inicializar nodos
     vector<NodoCalculador> bulk,bulk2;
@@ -67,9 +64,11 @@ void AbstractTreeConstructor::CreateRTree(string infile, string outfile, int N){
     NodoCalculador raiz;
     for(NodoCalculador &hijoraiz : bulk)
         raiz.addChild(hijoraiz);
-    resultado.seekp(0);
-    resultado.write(reinterpret_cast<const std::ostream::char_type *>(&raiz.nodo),sizeof(Nodo));
+    final[0] = raiz.nodo;
 
+    ofstream resultado(outfile);
+    for(Nodo& a : final)
+        resultado.write(reinterpret_cast<const std::ostream::char_type *>(&a),sizeof(Nodo));
     resultado.close();
 }
 
