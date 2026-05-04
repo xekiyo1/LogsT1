@@ -14,10 +14,11 @@ using namespace std;
  */
 class AbstractTreeConstructor{
 protected:
-    /// Archivo en el que se escribe el RTree resultante.
-    ofstream resultado;
     /// Cuenta total de Nodos que se han escrito al archivo.
     int cantidadNodos = 0;
+    
+    /// Vector en el cual se guardan los nodos para bulk-loading
+    vector<Nodo> final;
 
     /**
      * Ordena un intervalo de nodos Hijo según su coordenada x. Se asume que x1 y x2 son iguales.
