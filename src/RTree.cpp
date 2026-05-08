@@ -112,7 +112,7 @@ public:
         qfinal.puntos = 0;
         qfinal.diskreads = 0;
         
-        for(int i = 0;i<cuadrados.size();i++){
+        for(unsigned int i = 0;i<cuadrados.size();i++){
             QuerySquare &qs = cuadrados[i];
             QueryResult qr = puntosConsulta(qs.x1, qs.y1, qs.x2, qs.y2);
             qfinal.puntos += qr.puntos;
