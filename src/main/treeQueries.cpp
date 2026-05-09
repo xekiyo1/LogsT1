@@ -7,67 +7,39 @@ using namespace std;
 #define SALIDA_PUNTOS "puntos_encontrados.csv"
 #define SALIDA_LECTURAS "lecturas_disco.csv"
 //macro para escribir lo mismo en ambos archivos
-#define escribir(x); puntos<<x;lecturas<<x;
+
 
 vector<float> tamaños = {0.0025f, 0.005f, 0.01f, 0.025f, 0.05f};
 
+ofstream puntos(SALIDA_PUNTOS);
+ofstream lecturas(SALIDA_LECTURAS);
+
+void procesar(string nombre, int seed) {
+    for(float s : tamaños){
+        RTree arbol(nombre + ".bin");
+        vector<QueryResult> q = arbol.QueryS(s, seed);
+        unsigned int p = 0;
+        unsigned int d = 0;
+        puntos << nombre << '[' << s << ']';
+        lecturas << nombre << '[' << s << ']';
+        for (QueryResult &r : q) {
+            p += r.puntos;
+            d += r.diskreads;
+            puntos<<';'<<r.puntos;
+            lecturas<<';'<<r.diskreads;
+        }
+        cout << '[' << nombre << ']' << " Tamaño: " << s << " Puntos encontrados: " << p << " I/Os: " << d << endl;
+        puntos << endl;
+        lecturas << endl;
+    }
+}
+
 
 int main() {
-    ofstream puntos(SALIDA_PUNTOS);
-    ofstream lecturas(SALIDA_LECTURAS);
-
-    escribir("Cuadrado");
-    for(float s : tamaños){ escribir(';'<<s); }
-    escribir('\n');
-
-    escribir("STR");
-    for(float s : tamaños){
-        RTree arbol("EuropaSTR.bin");
-        RTree::QueryResult q = arbol.QueryS(s, 1);
-        cout << "Tamaño: " << s << " Puntos encontrados: " << q.puntos << " I/Os: " << q.diskreads << endl;
-
-        puntos<<';'<<q.puntos;
-        lecturas<<';'<<q.diskreads;
-    }
-
-    escribir('\n');
-
-    escribir("NearestX");
-    for(float s : tamaños){
-        RTree arbol("EuropaNX.bin");
-        RTree::QueryResult q = arbol.QueryS(s, 42);
-        cout << "Tamaño: " << s << " Puntos encontrados: " << q.puntos << " I/Os: " << q.diskreads << endl;
-
-        escribir(';');
-        puntos<<q.puntos;
-        lecturas<<q.diskreads;
-    }
-
-    escribir('\n');
-
-    escribir("Random STR");
-    for(float s : tamaños){
-        RTree arbol("RandomSTR.bin");
-        RTree::QueryResult q = arbol.QueryS(s, 1);
-        cout << "Tamaño: " << s << " Puntos encontrados: " << q.puntos << " I/Os: " << q.diskreads << endl;
-
-        puntos<<';'<<q.puntos;
-        lecturas<<';'<<q.diskreads;
-    }
-
-    escribir('\n');
-
-    escribir("Random NearestX");
-    for(float s : tamaños){
-        RTree arbol("RandomNX.bin");
-        RTree::QueryResult q = arbol.QueryS(s, 42);
-        cout << "Tamaño: " << s << " Puntos encontrados: " << q.puntos << " I/Os: " << q.diskreads << endl;
-
-        escribir(';');
-        puntos<<q.puntos;
-        lecturas<<q.diskreads;
-    }   
-
+    procesar("EuropaSTR",1);
+    procesar("EuropaNX",42);
+    procesar("RandomSTR",88523);
+    procesar("RandomNX",998244353);
 
     puntos.close();
     lecturas.close();

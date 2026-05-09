@@ -1,6 +1,12 @@
 #include "RTreeConstructor.h"
 using namespace std;
 
+/**
+ *
+ * @tparam TipoNodo
+ * @param og
+ * @param dest
+ */
 template <typename TipoNodo>
 void NearestXConstructor::groupGeneric(vector<TipoNodo> &og, vector<NodoCalculador> &dest){
     sorterX(og.begin(), og.end());

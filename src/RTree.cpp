@@ -1,4 +1,3 @@
-#include "config.hp"
 #include "headers.h"
 #include "./util/RandomSquare/RandomSquare.h"
 using namespace std;
@@ -25,9 +24,7 @@ public:
 
     int getReads() {return diskreads;} 
 
-    void resetReads() {diskreads = 0;} 
-
-
+    void resetReads() {diskreads = 0;}
 
     //busca un nodo según su índice
     Nodo obtenerIndice(unsigned long long i){
@@ -92,11 +89,6 @@ public:
         return sans;
     }
 
-        struct QueryResult{
-        int puntos;
-        int diskreads;
-    };
-
     QueryResult puntosConsulta(float x1, float y1, float x2, float y2){
         QueryResult qr;
         qr.puntos = encontrarPuntos(x1,y1,x2,y2).size() / 2; // cada punto tiene 2 coordenadas
@@ -105,20 +97,15 @@ public:
         return qr;
     }
     
-    QueryResult QueryS(float s, int seed){
+    vector<QueryResult> QueryS(float s, int seed){
 
         vector<QuerySquare> cuadrados = generarCuadrados(s, CUADRADOS, seed);
-        QueryResult qfinal;
-        qfinal.puntos = 0;
-        qfinal.diskreads = 0;
+        vector<QueryResult> qfinal;
         
         for(unsigned int i = 0;i<cuadrados.size();i++){
             QuerySquare &qs = cuadrados[i];
-            QueryResult qr = puntosConsulta(qs.x1, qs.y1, qs.x2, qs.y2);
-            qfinal.puntos += qr.puntos;
-            qfinal.diskreads += qr.diskreads;
+            qfinal.push_back(puntosConsulta(qs.x1, qs.y1, qs.x2, qs.y2));
         }
         return qfinal;
     }
-
 };

@@ -30,7 +30,7 @@ run:
 	make run-query
 
 clean:
-	find . -type f -name "*.bin" ! -path "*europa.bin" ! -path "*test.bin" ! -path "*random.bin" -delete
+	find . -type f -name "*.bin" ! -path "*/data/*" -delete
 	find -type f -name "*.out" -delete
 clean-logs:
 	find -type f -name "*.log | *.csv"
@@ -51,7 +51,7 @@ CUSTOM-QUERY-OUT=bin/commands/custom_query.out
 
 compile-custom:
 	g++ -o $(CUSTOM-BUILD-OUT) src/main/custom_build.cpp $(FILES-CONSTRUCT)
-	g++ -o bin/commands/custom_query.out src/main/custom_query.cpp $(FILES-QUERY)
+	g++ -o $(CUSTOM-QUERY-OUT) src/main/custom_query.cpp $(FILES-QUERY)
 
 run-bonus:
 	make compile-custom

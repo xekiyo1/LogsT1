@@ -1,17 +1,25 @@
 #include "RTreeConstructor.h"
 using namespace std;
 
+/**
+ *
+ * @tparam TipoNodo Define
+ * @param bulk
+ * @param dest
+ */
 template <typename TipoNodo>
 void STRConstructor::groupGeneric(vector<TipoNodo> &bulk, vector<NodoCalculador> &dest){
     // primero, ordena en X y divide en subgrupos de tamaño raíz (n/b)
     sorterX(bulk.begin(), bulk.end());
-    const int tamano = max<int>(sqrt(static_cast<double>(bulk.size()) / static_cast<double>(HIJOS_NODO)), HIJOS_NODO);
+    const int tamano = bulk.size() / sqrt(static_cast<double>(bulk.size()) / static_cast<double>(HIJOS_NODO));
 
     #ifdef LOGLEVEL
-        if constexpr (LOGLEVEL > 1)cout<<"división en STR: "<<tamano<<endl;
+        if constexpr (LOGLEVEL > 1)
+            cout << "división en STR: " << tamano << endl;
     #endif
 
     // Para cada subgrupo, ordena según coordenada Y
+    // en (n / tamano) intervalos
     for(unsigned int i=0;i<bulk.size();i+=tamano){
         auto begin = bulk.begin() + i;
         auto end = bulk.begin() + min<unsigned int>(i + tamano, bulk.size());
