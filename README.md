@@ -4,12 +4,13 @@ El presente programa ejecuta pruebas de rendimiento para dos algoritmos de const
 El objetivo del proyecto es la comparación en tiempo de construcción y de búsqueda de ambos algoritmos a partir de un
 dataset de puntos de Europa y otro aleatorio con valores normalizados.
 
-NOTA: Los datasets deben descargarse a mano, pues git no permite la subida de archivos pesados por defecto.
+NOTA: Los datasets deben descargarse a mano, pues git no permite la subida de archivos pesados por defecto. El enlace es el siguiente:
+
 
 ## Requisitos
 
 - Los dataset de puntos en formato binario (europa.bin, random.bin, europa_bonus.bin) deben estar en la carpeta
-/bin/data/, se pueden descargar en el siguiente enlace: 
+/bin/data/, se pueden descargar en el siguiente enlace: https://github.com/claugaete/tarea1-cc4102-2026-1
 - Se requiere un sistema operativo basado en Unix que cuente con los siguientes comandos/librerias
 	+ grep
 	+ ls
@@ -20,22 +21,24 @@ NOTA: Los datasets deben descargarse a mano, pues git no permite la subida de ar
 	+ make
 	+ test
 
-- Agregar los permisos necesarios para que el archivo bash del cli pueda correr. Esto se logra utilizando chmod para agregar permisos de lectura y ejecución como se ve en el código de a continuación.
+- Opcional: Agregar los permisos necesarios para que el archivo bash del cli pueda correr. Esto se logra utilizando chmod para agregar permisos de lectura y ejecución como se ve en el código de a continuación si se quieren guardar los logs, aunque esto no fue necesario en el proyecto final.
 	```bash
 	chmod +rx ./sh/cli.sh
 	```
 
-	Opcionalemte, se puede utilizar el comando "make allow-cli"
+	También, se puede utilizar el comando "make allow-cli"
 
 ## Correr el programa
 Para correr la tarea, basta con ir al directorio desde una terminal y correr
 - **make run** (equivalente a: make run-construct && make run-query)
 
-Esto creará diversos archivos con las métricas obtenidas de la creación de los árboles,
+Esto creará diversos archivos .csv con las métricas obtenidas de la creación de los árboles,
 mientras imprime en tiempo real la información que va rescatando.
 
 Si además se quiere realizar la query del bonus, usar:
 - **make run-all** (equivalente a: make run && make run-bonus)
+
+Que realiza una consulta predeterminada en los datos de europa_bonus.bin.
 
 A continuación se describe la función de cada comando individual.
 
