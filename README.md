@@ -30,14 +30,23 @@ NOTA: Los datasets deben descargarse a mano, pues git no permite la subida de ar
 
 ## Correr el programa
 Para correr la tarea, basta con ir al directorio desde una terminal y correr
-- **make run** (equivalente a: make run-construct && make run-query)
+
+```bash
+make run 
+```
+
+(equivalente a: make run-construct && make run-query)
 
 Esto creará diversos archivos .csv con las métricas obtenidas de la creación de los árboles,
 mientras imprime en tiempo real la información que va rescatando.
 
 Si además se quiere realizar la query del bonus, usar:
-- **make run-all** (equivalente a: make run && make run-bonus)
 
+``` bash
+make run-all 
+```
+
+(equivalente a: make run && make run-bonus)
 Que realiza una consulta predeterminada en los datos de europa_bonus.bin.
 
 A continuación se describe la función de cada comando individual.
@@ -62,13 +71,37 @@ Se puede observar que '**make run-bonus**' crea los ejecutables /bin/commands/cu
 los cuales son un resultado de **make compile-bonus**. Estos permiten crear RTrees y consultas personalizadas
 sin necesidad de modificar el código, por lo que en caso de ser útil, se puede usar:
 
-- ./bin/commands/custom_build.out [nombre] [metodo] [N]
+```bash
+./bin/commands/custom_build.out [nombre] [metodo] [N]
+```
 
 Donde "nombre" es el archivo binario de puntos almacenado en bin/data/ (ejemplo: europa.bin),
 "metodo" es NX para usar Nearest-X o STR para usar el mismo STR, y $N$ es la potencia de dos que se
 usará como cota máxima al extraer los puntos (ejemplo: $N=7$ significa que se usarán $2^7$ puntos).
 
-- ./bin/commands/custom_query.out [nombre] [x1] [y1] [x2] [y2]
+```bash
+./bin/commands/custom_query.out [nombre] [x1] [y1] [x2] [y2]
+```
 
 Donde "nombre" es el archivo binario en /bin/trees/ con el RTree a utilizar (ejemplo: EuropaSTR.bin) y
 el resto de variables describen el rango de puntos a buscar en el archivo ($x1 < x2$ , $y1 < y2$).
+
+
+## Usar el cli (Opcional)
+Esta feature opcional fue creada, pero no muy utilizada. Dentro del repositorio, hay 2 archivos. Uno que permite correr un cli con logger (sh/logger.sh) y otro que lo puede correr sin logger (sh/cli.sh). Para usarlos, primero hay que darles permisos de ejecución tal y como se describe al principio de este archivo.
+
+Para correr cualquiera de estos archivos, es tan simple como usar el comando
+
+``` bash
+bash (nombre_de_archivo).sh
+```
+
+Se abrirá un linea de comandos que permite correr varias veces los archivos compilados con su nombre y argumentos. Por ejemplo, si se quiere correr el archivo ./bin/commands/custom_query.out , se puede hacer como:
+
+```bash
+> custom_query [nombre] [x1] [y1] [x2] [y2]
+```
+
+Si se utilizó logger.sh, el archivo debería quedar guardado en formato logs/log_[timestamp].log y contener todo el resultado de la salida estándar.
+
+Para salir del cli, se puede utilizar el comando 'exit'
