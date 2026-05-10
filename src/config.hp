@@ -23,19 +23,30 @@
 
 /**
  * Estructura que representa una query para un RTree. Contiene las coordenadas que corresponden al bounding box que
- * se está consultando.
+ * se está consultando. Se llama Square pues se utiliza para generar cuadrados, pero puede ser un rectángulo sin problema.
  */
 struct QuerySquare {
+    /// Cota inferior del rectángulo en el eje X.
     float x1;
+    /// Cota inferior del rectángulo en el eje Y.
     float y1;
+    /// Cota superior del rectángulo en el eje X.
     float x2;
+    /// Cota superior del rectángulo en el eje Y.
     float y2;
 };
 
 /** Estructura que representa un hijo dentro de un nodo. Incluye el rectángulo que contiene a sus puntos y el
  * índice del archivo donde se almacena el nodo en sí.*/
 struct Hijo{
-    float x1,x2,y1,y2;
+    /// Cota inferior del rectángulo en el eje X.
+    float x1;
+    /// Cota inferior del rectángulo en el eje Y.
+    float y1;
+    /// Cota superior del rectángulo en el eje X.
+    float x2;
+    /// Cota superior del rectángulo en el eje Y.
+    float y2;
     /// Índice donde está almacenado el Nodo con estas coordenadas.
     int valor;
 };

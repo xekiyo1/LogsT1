@@ -4,9 +4,17 @@
 #include <fstream>
 using namespace std;
 
+/// Macro para mostrar el usage en distintas partes del código
 #define SHOW_USAGE cout << "Usage: " << argv[0] << " [RTree filename on bin/trees)] [x1] [y1] [x2] [y2]" << endl
+/// Nombre del archivo al que se escriben los resultados de la query
 #define CSV_OUT "customQuery.csv"
 
+/**
+ * Realiza una consulta en un RTree, a partir de argumentos dados por el usuario.
+ * @param argc Cuenta de argumentos.
+ * @param argv Argumentos con los que se corre el programa.
+ * @return Código de error C++
+ */
 int main(const int argc, char ** argv) {
 
     if (constexpr int expected_arguments = 5; argc != expected_arguments + 1){

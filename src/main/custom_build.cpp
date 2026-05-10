@@ -4,6 +4,7 @@
 #include "../RTreeConstructors/RTreeConstructor.h"
 using namespace std;
 
+/// Macro para mostrar el USAGE en distintas secciones del código
 #define SHOW_USAGE cout << "Usage: " << argv[0] << " [filename on bin/data)] [NX | STR] [N (2^N blocks will be used)]" << endl
 
 /**
@@ -11,6 +12,8 @@ using namespace std;
  * se ocupa de armar árboles R según especificaciones.
  *
  * El resultado es luego enviado a bin/trees/custom.bin
+ * @param argc Cuenta de argumentos.
+ * @param argv Argumentos con los que se corre el programa.
  */
 int main(const int argc, char** argv){
 	if (constexpr int expected_arguments = 3; argc != expected_arguments + 1){

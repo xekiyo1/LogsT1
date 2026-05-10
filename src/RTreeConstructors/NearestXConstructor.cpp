@@ -2,10 +2,13 @@
 using namespace std;
 
 /**
+ * Agrupa los Nodos de un vector en instancias de NodoCalculador, agregándolas a un vector ya existente.
+ * En este caso, los ordena por cercanía en coordenada X.
  *
- * @tparam TipoNodo
- * @param og
- * @param dest
+ * Acepta tanto _Hijo_ como _NodoCalculador_.
+ * @tparam TipoNodo Clase contenida en el vector entregado. Debe ser Hijo o NodoCalculador.
+ * @param og Vector de instancias a agrupar en NodoCalculador. NOTA: Va a ser modificado durante la ejecución.
+ * @param dest Vector de NodoCalculador
  */
 template <typename TipoNodo>
 void NearestXConstructor::groupGeneric(vector<TipoNodo> &og, vector<NodoCalculador> &dest){

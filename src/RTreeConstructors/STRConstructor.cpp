@@ -2,10 +2,13 @@
 using namespace std;
 
 /**
+ * Agrupa los Nodos de un vector en instancias de NodoCalculador, agregándolas a un vector ya existente.
+ * En este caso, los ordena según sus coordenadas X en subgrupos por cercanía de Y.
  *
- * @tparam TipoNodo Define
- * @param bulk
- * @param dest
+ * Acepta tanto _Hijo_ como _NodoCalculador_.
+ * @tparam TipoNodo Clase contenida en el vector entregado. Debe ser Hijo o NodoCalculador.
+ * @param bulk Vector de instancias a agrupar en NodoCalculador. NOTA: Va a ser modificado durante la ejecución.
+ * @param dest Vector de NodoCalculador
  */
 template <typename TipoNodo>
 void STRConstructor::groupGeneric(vector<TipoNodo> &bulk, vector<NodoCalculador> &dest){
